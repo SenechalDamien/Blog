@@ -9,11 +9,15 @@ BlogBundle\Entity\Article:
             generator:
                 strategy: AUTO
     fields:
-        datePublication:
-            type: date
         contenu:
+            type: text
+        titre:
             type: string
             length: 255
+        dateModif:
+            type: date
+        datePublication:
+            type: date
         active:
             type: boolean
     manyToOne:
