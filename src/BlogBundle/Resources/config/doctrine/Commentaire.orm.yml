@@ -1,0 +1,21 @@
+BlogBundle\Entity\Commentaire:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\CommentaireRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        contenu:
+            type: string
+            length: 255
+        note:
+            type: integer
+    manyToOne:
+        article:
+            targetEntity: Article
+            inversedBy: commentaires
+            cascade: [ persist ]

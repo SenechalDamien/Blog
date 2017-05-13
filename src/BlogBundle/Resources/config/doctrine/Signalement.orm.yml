@@ -1,0 +1,18 @@
+BlogBundle\Entity\Signalement:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\SignalementRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        active:
+            type: boolean
+    manyToOne:
+        user:
+            targetEntity: User
+        article:
+            targetEntity: Article

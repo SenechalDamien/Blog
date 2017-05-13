@@ -1,0 +1,27 @@
+BlogBundle\Entity\Article:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\ArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        datePublication:
+            type: date
+        contenu:
+            type: string
+            length: 255
+        active:
+            type: boolean
+    manyToOne:
+        theme:
+            targetEntity: Theme
+        user:
+            targetEntity: User
+    oneToMany:
+        commentaires:
+            targetEntity: Commentaire
+            mappedBy: article

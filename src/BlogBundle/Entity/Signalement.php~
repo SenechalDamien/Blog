@@ -1,0 +1,54 @@
+<?php
+
+namespace BlogBundle\Entity;
+
+/**
+ * Signalement
+ */
+class Signalement
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var bool
+     */
+    private $active;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Signalement
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+}

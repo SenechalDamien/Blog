@@ -1,0 +1,30 @@
+BlogBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        login:
+            type: string
+            length: 255
+            unique: true
+        mdp:
+            type: string
+            length: 255
+        active:
+            type: boolean
+    oneToMany:
+        theme:
+            targetEntity: Theme
+            mappedBy: user
+        role:
+            targetEntity: Role
+            mappedBy: user
+        specialite:
+            targetEntity: Theme
+            mappedBy: user

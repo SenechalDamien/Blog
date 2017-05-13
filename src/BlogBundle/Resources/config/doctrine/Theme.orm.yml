@@ -1,0 +1,25 @@
+BlogBundle\Entity\Theme:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\ThemeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        nom:
+            type: string
+            length: 255
+        active:
+            type: boolean
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: theme
+            cascade: [ persist ]
+        user:
+            targetEntity: User
+            inversedBy: specialite
+            cascade: [ persist ]
