@@ -14,12 +14,3 @@ BlogBundle\Entity\Theme:
             length: 255
         active:
             type: boolean
-    manyToOne:
-        user:
-            targetEntity: User
-            inversedBy: theme
-            cascade: [ persist ]
-        user:
-            targetEntity: User
-            inversedBy: specialite
-            cascade: [ persist ]

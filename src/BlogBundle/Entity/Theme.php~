@@ -83,30 +83,4 @@ class Theme
     /**
      * @var \BlogBundle\Entity\User
      */
-    private $user;
-
-
-    /**
-     * Set user
-     *
-     * @param \BlogBundle\Entity\User $user
-     *
-     * @return Theme
-     */
-    public function setUser(\BlogBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \BlogBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }
