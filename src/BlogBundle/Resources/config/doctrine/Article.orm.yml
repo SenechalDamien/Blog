@@ -21,11 +21,19 @@ BlogBundle\Entity\Article:
         active:
             type: boolean
     manyToOne:
-        theme:
+        themeArticle:
             targetEntity: Theme
-        user:
+            inversedBy: articleAssocie
+            cascade: [persist]
+        ecritPar:
             targetEntity: User
-    oneToMany:
-        commentaires:
-            targetEntity: Commentaire
             mappedBy: article
+            cascade: [persist]
+    oneToMany:
+        comArticle:
+            targetEntity: Commentaire
+            mappedBy: articleAssocie
+        signalement:
+            targetEntity: SignalementArticle
+            mappedBy: signal
+        

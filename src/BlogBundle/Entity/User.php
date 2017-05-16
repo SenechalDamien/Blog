@@ -234,4 +234,174 @@ class User
     {
         return $this->specialite;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comSignale;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleSignale;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $article;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $com;
+
+
+    /**
+     * Add comSignale
+     *
+     * @param \BlogBundle\Entity\SignalementCom $comSignale
+     *
+     * @return User
+     */
+    public function addComSignale(\BlogBundle\Entity\SignalementCom $comSignale)
+    {
+        $this->comSignale[] = $comSignale;
+
+        return $this;
+    }
+
+    /**
+     * Remove comSignale
+     *
+     * @param \BlogBundle\Entity\SignalementCom $comSignale
+     */
+    public function removeComSignale(\BlogBundle\Entity\SignalementCom $comSignale)
+    {
+        $this->comSignale->removeElement($comSignale);
+    }
+
+    /**
+     * Get comSignale
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComSignale()
+    {
+        return $this->comSignale;
+    }
+
+    /**
+     * Add articleSignale
+     *
+     * @param \BlogBundle\Entity\SignalementArticle $articleSignale
+     *
+     * @return User
+     */
+    public function addArticleSignale(\BlogBundle\Entity\SignalementArticle $articleSignale)
+    {
+        $this->articleSignale[] = $articleSignale;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleSignale
+     *
+     * @param \BlogBundle\Entity\SignalementArticle $articleSignale
+     */
+    public function removeArticleSignale(\BlogBundle\Entity\SignalementArticle $articleSignale)
+    {
+        $this->articleSignale->removeElement($articleSignale);
+    }
+
+    /**
+     * Get articleSignale
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleSignale()
+    {
+        return $this->articleSignale;
+    }
+
+    /**
+     * Add article
+     *
+     * @param \BlogBundle\Entity\Article $article
+     *
+     * @return User
+     */
+    public function addArticle(\BlogBundle\Entity\Article $article)
+    {
+        $this->article[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \BlogBundle\Entity\Article $article
+     */
+    public function removeArticle(\BlogBundle\Entity\Article $article)
+    {
+        $this->article->removeElement($article);
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * Add com
+     *
+     * @param \BlogBundle\Entity\Comentaire $com
+     *
+     * @return User
+     */
+    public function addCom(\BlogBundle\Entity\Comentaire $com)
+    {
+        $this->com[] = $com;
+
+        return $this;
+    }
+
+    /**
+     * Remove com
+     *
+     * @param \BlogBundle\Entity\Comentaire $com
+     */
+    public function removeCom(\BlogBundle\Entity\Comentaire $com)
+    {
+        $this->com->removeElement($com);
+    }
+
+    /**
+     * Get com
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCom()
+    {
+        return $this->com;
+    }
+
+    /**
+     * Set role
+     *
+     * @param \BlogBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function setRole(\BlogBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 }

@@ -19,12 +19,23 @@ BlogBundle\Entity\User:
         active:
             type: boolean
     oneToMany:
+        comSignale:
+            targetEntity: SignalementCom
+            mappedBy: signalePar
+        articleSignale:
+            targetEntity: SignalementArticle
+            mappedBy: signalePar
         theme:
             targetEntity: Theme
-            mappedBy: user
+            mappedBy: aimePar
+        article:
+            targetEntity: Article
+            mappedBy: ecritPar
+        com:
+            targetEntity: Comentaire
+            mappedBy: commentePar
+    manyToOne:
         role:
             targetEntity: Role
-            mappedBy: user
-        specialite:
-            targetEntity: Theme
-            mappedBy: user
+            
+    

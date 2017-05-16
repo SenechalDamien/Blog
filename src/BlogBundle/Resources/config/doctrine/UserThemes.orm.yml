@@ -1,0 +1,23 @@
+BlogBundle\Entity\UserThemes:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\UserThemesRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        specialite:
+            type: boolean
+    manyToOne:
+        aimePar:
+            targetEntity: User
+            inversedBy: theme
+            cascade: [persist]
+        aime:
+            targetEntity: Theme
+            inversedBy: users
+            cascade: [persist]
+    lifecycleCallbacks: {  }

@@ -1,0 +1,54 @@
+<?php
+
+namespace BlogBundle\Entity;
+
+/**
+ * UserThemes
+ */
+class UserThemes
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var bool
+     */
+    private $specialite;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set specialite
+     *
+     * @param boolean $specialite
+     *
+     * @return UserThemes
+     */
+    public function setSpecialite($specialite)
+    {
+        $this->specialite = $specialite;
+
+        return $this;
+    }
+
+    /**
+     * Get specialite
+     *
+     * @return bool
+     */
+    public function getSpecialite()
+    {
+        return $this->specialite;
+    }
+}

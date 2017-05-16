@@ -83,4 +83,90 @@ class Theme
     /**
      * @var \BlogBundle\Entity\User
      */
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleAssocie;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleAssocie = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \BlogBundle\Entity\UserThemes $user
+     *
+     * @return Theme
+     */
+    public function addUser(\BlogBundle\Entity\UserThemes $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \BlogBundle\Entity\UserThemes $user
+     */
+    public function removeUser(\BlogBundle\Entity\UserThemes $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Add articleAssocie
+     *
+     * @param \BlogBundle\Entity\Article $articleAssocie
+     *
+     * @return Theme
+     */
+    public function addArticleAssocie(\BlogBundle\Entity\Article $articleAssocie)
+    {
+        $this->articleAssocie[] = $articleAssocie;
+
+        return $this;
+    }
+
+    /**
+     * Remove articleAssocie
+     *
+     * @param \BlogBundle\Entity\Article $articleAssocie
+     */
+    public function removeArticleAssocie(\BlogBundle\Entity\Article $articleAssocie)
+    {
+        $this->articleAssocie->removeElement($articleAssocie);
+    }
+
+    /**
+     * Get articleAssocie
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticleAssocie()
+    {
+        return $this->articleAssocie;
+    }
 }

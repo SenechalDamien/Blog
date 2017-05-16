@@ -14,3 +14,10 @@ BlogBundle\Entity\Theme:
             length: 255
         active:
             type: boolean
+    oneToMany:
+        users:
+            targetEntity: UserThemes
+            mappedBy: aime
+        articleAssocie:
+            targetEntity: Article
+            mappedBy: themeArticle

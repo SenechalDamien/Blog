@@ -15,7 +15,15 @@ BlogBundle\Entity\Commentaire:
         note:
             type: integer
     manyToOne:
-        article:
-            targetEntity: Article
-            inversedBy: commentaires
+        commentePar:
+            targetEntity: User
+            inversedBy: com
             cascade: [ persist ]
+        articleAssocie:
+            targetEntity: Article
+            inversedBy: comArticle
+            cascade: [ persist ]
+    oneToMany:
+        signalement:
+            targetEntity: SignalementCom
+            mappedBy: signale

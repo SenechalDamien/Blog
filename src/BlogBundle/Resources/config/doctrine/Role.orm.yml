@@ -12,8 +12,3 @@ BlogBundle\Entity\Role:
         nom:
             type: string
             length: 255
-    manyToOne:
-        user:
-            targetEntity: User
-            inversedBy: role
-            cascade: [ persist ]

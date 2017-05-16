@@ -1,0 +1,28 @@
+BlogBundle\Entity\SignalementArticle:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\SignalementArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        active:
+            type: boolean
+        date:
+            type: date
+        raison:
+            type: string
+            length: 25000    
+    manyToOne:
+        signalePar:
+            targetEntity: User
+            inversedBy: articleSignale
+            cascade: [persist]
+        signale:
+            targetEntity: Article
+            inversedBy: signalement
+            cascade: [persist]
+    lifecycleCallbacks: {  }

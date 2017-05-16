@@ -1,0 +1,83 @@
+<?php
+
+namespace BlogBundle\Entity;
+
+/**
+ * SignalementArticle
+ */
+class SignalementArticle
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var bool
+     */
+    private $active;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return SignalementArticle
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return bool
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return SignalementArticle
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+}
