@@ -3,7 +3,6 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Article;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,6 +35,27 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush($article);
+
+            return $this->redirectToRoute('article_show', array('id' => $article->getId()));
+        }
+
+        return $this->render('article/new.html.twig', array(
+            'article' => $article,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /*
+    public function newAction(Request $request)
+    {
+        $article = new Article();
+        $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
         $form->add('submit', SubmitType::class, array('label' => 'Valider'));
         $form->handleRequest($request);
 
@@ -57,6 +77,7 @@ class ArticleController extends Controller
             'form' => $form->createView(),
         ));
     }
+    */
 
     /**
      * Finds and displays a article entity.

@@ -32,10 +32,8 @@ BlogBundle\Entity\User:
             targetEntity: Article
             mappedBy: ecritPar
         com:
-            targetEntity: Comentaire
+            targetEntity: Commentaire
             mappedBy: commentePar
     manyToOne:
         role:
             targetEntity: Role
-            
-    

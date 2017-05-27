@@ -15,7 +15,7 @@ BlogBundle\Entity\SignalementArticle:
             type: date
         raison:
             type: string
-            length: 25000    
+            length: 255    
     manyToOne:
         signalePar:
             targetEntity: User
