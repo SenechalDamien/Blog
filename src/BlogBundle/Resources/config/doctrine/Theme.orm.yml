@@ -18,6 +18,8 @@ BlogBundle\Entity\Theme:
         users:
             targetEntity: UserThemes
             mappedBy: aime
-        articleAssocie:
+    manyToMany:
+        articles:
             targetEntity: Article
-            mappedBy: themeArticle
+            inversedBy: themes
+            cascade: [ persist ]

@@ -8,20 +8,30 @@ namespace BlogBundle\Entity;
 class UserThemes
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $specialite;
+
+    /**
+     * @var \BlogBundle\Entity\User
+     */
+    private $aimePar;
+
+    /**
+     * @var \BlogBundle\Entity\Theme
+     */
+    private $aime;
 
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -45,22 +55,12 @@ class UserThemes
     /**
      * Get specialite
      *
-     * @return bool
+     * @return boolean
      */
     public function getSpecialite()
     {
         return $this->specialite;
     }
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    private $aimePar;
-
-    /**
-     * @var \BlogBundle\Entity\Theme
-     */
-    private $aime;
-
 
     /**
      * Set aimePar
@@ -110,3 +110,4 @@ class UserThemes
         return $this->aime;
     }
 }
+

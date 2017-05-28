@@ -8,14 +8,9 @@ namespace BlogBundle\Entity;
 class Article
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
-
-    /**
-     * @var \DateTime
-     */
-    private $datePublication;
 
     /**
      * @var string
@@ -23,43 +18,63 @@ class Article
     private $contenu;
 
     /**
-     * @var bool
+     * @var string
+     */
+    private $titre;
+
+    /**
+     * @var \DateTime
+     */
+    private $dateModif;
+
+    /**
+     * @var \DateTime
+     */
+    private $datePublication;
+
+    /**
+     * @var boolean
      */
     private $active;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comArticle;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $signalement;
+
+    /**
+     * @var \BlogBundle\Entity\User
+     */
+    private $ecritPar;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $themes;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comArticle = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->signalement = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->themes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set datePublication
-     *
-     * @param \DateTime $datePublication
-     *
-     * @return Article
-     */
-    public function setDatePublication($datePublication)
-    {
-        $this->datePublication = $datePublication;
-
-        return $this;
-    }
-
-    /**
-     * Get datePublication
-     *
-     * @return \DateTime
-     */
-    public function getDatePublication()
-    {
-        return $this->datePublication;
     }
 
     /**
@@ -85,144 +100,6 @@ class Article
     {
         return $this->contenu;
     }
-
-    /**
-     * Set active
-     *
-     * @param boolean $active
-     *
-     * @return Article
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-
-        return $this;
-    }
-
-    /**
-     * Get active
-     *
-     * @return bool
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $commentaires;
-
-    /**
-     * @var \BlogBundle\Entity\Theme
-     */
-    private $theme;
-
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    private $user;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add commentaire
-     *
-     * @param \BlogBundle\Entity\Commentaire $commentaire
-     *
-     * @return Article
-     */
-    public function addCommentaire(\BlogBundle\Entity\Commentaire $commentaire)
-    {
-        $this->commentaires[] = $commentaire;
-
-        return $this;
-    }
-
-    /**
-     * Remove commentaire
-     *
-     * @param \BlogBundle\Entity\Commentaire $commentaire
-     */
-    public function removeCommentaire(\BlogBundle\Entity\Commentaire $commentaire)
-    {
-        $this->commentaires->removeElement($commentaire);
-    }
-
-    /**
-     * Get commentaires
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCommentaires()
-    {
-        return $this->commentaires;
-    }
-
-    /**
-     * Set theme
-     *
-     * @param \BlogBundle\Entity\Theme $theme
-     *
-     * @return Article
-     */
-    public function setTheme(\BlogBundle\Entity\Theme $theme = null)
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
-    /**
-     * Get theme
-     *
-     * @return \BlogBundle\Entity\Theme
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \BlogBundle\Entity\User $user
-     *
-     * @return Article
-     */
-    public function setUser(\BlogBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \BlogBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-    /**
-     * @var string
-     */
-    private $titre;
-
-    /**
-     * @var \DateTime
-     */
-    private $dateModif;
-
 
     /**
      * Set titre
@@ -271,26 +148,54 @@ class Article
     {
         return $this->dateModif;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comArticle;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * Set datePublication
+     *
+     * @param \DateTime $datePublication
+     *
+     * @return Article
      */
-    private $signalement;
+    public function setDatePublication($datePublication)
+    {
+        $this->datePublication = $datePublication;
+
+        return $this;
+    }
 
     /**
-     * @var \BlogBundle\Entity\Theme
+     * Get datePublication
+     *
+     * @return \DateTime
      */
-    private $themeArticle;
+    public function getDatePublication()
+    {
+        return $this->datePublication;
+    }
 
     /**
-     * @var \BlogBundle\Entity\User
+     * Set active
+     *
+     * @param boolean $active
+     *
+     * @return Article
      */
-    private $ecritPar;
+    public function setActive($active)
+    {
+        $this->active = $active;
 
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
 
     /**
      * Add comArticle
@@ -361,30 +266,6 @@ class Article
     }
 
     /**
-     * Set themeArticle
-     *
-     * @param \BlogBundle\Entity\Theme $themeArticle
-     *
-     * @return Article
-     */
-    public function setThemeArticle(\BlogBundle\Entity\Theme $themeArticle = null)
-    {
-        $this->themeArticle = $themeArticle;
-
-        return $this;
-    }
-
-    /**
-     * Get themeArticle
-     *
-     * @return \BlogBundle\Entity\Theme
-     */
-    public function getThemeArticle()
-    {
-        return $this->themeArticle;
-    }
-
-    /**
      * Set ecritPar
      *
      * @param \BlogBundle\Entity\User $ecritPar
@@ -407,4 +288,39 @@ class Article
     {
         return $this->ecritPar;
     }
+
+    /**
+     * Add theme
+     *
+     * @param \BlogBundle\Entity\Theme $theme
+     *
+     * @return Article
+     */
+    public function addTheme(\BlogBundle\Entity\Theme $theme)
+    {
+        $this->themes[] = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Remove theme
+     *
+     * @param \BlogBundle\Entity\Theme $theme
+     */
+    public function removeTheme(\BlogBundle\Entity\Theme $theme)
+    {
+        $this->themes->removeElement($theme);
+    }
+
+    /**
+     * Get themes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getThemes()
+    {
+        return $this->themes;
+    }
 }
+

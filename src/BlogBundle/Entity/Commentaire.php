@@ -8,7 +8,7 @@ namespace BlogBundle\Entity;
 class Commentaire
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -18,15 +18,37 @@ class Commentaire
     private $contenu;
 
     /**
-     * @var int
+     * @var integer
      */
     private $note;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $signalement;
+
+    /**
+     * @var \BlogBundle\Entity\User
+     */
+    private $commentePar;
+
+    /**
+     * @var \BlogBundle\Entity\Article
+     */
+    private $articleAssocie;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->signalement = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -74,62 +96,11 @@ class Commentaire
     /**
      * Get note
      *
-     * @return int
+     * @return integer
      */
     public function getNote()
     {
         return $this->note;
-    }
-    /**
-     * @var \BlogBundle\Entity\Article
-     */
-    private $article;
-
-
-    /**
-     * Set article
-     *
-     * @param \BlogBundle\Entity\Article $article
-     *
-     * @return Commentaire
-     */
-    public function setArticle(\BlogBundle\Entity\Article $article = null)
-    {
-        $this->article = $article;
-
-        return $this;
-    }
-
-    /**
-     * Get article
-     *
-     * @return \BlogBundle\Entity\Article
-     */
-    public function getArticle()
-    {
-        return $this->article;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $signalement;
-
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    private $commentePar;
-
-    /**
-     * @var \BlogBundle\Entity\Article
-     */
-    private $articleAssocie;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->signalement = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -214,3 +185,4 @@ class Commentaire
         return $this->articleAssocie;
     }
 }
+

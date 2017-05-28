@@ -3,6 +3,8 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Article;
+use BlogBundle\Entity\SignalementCom;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,9 +37,18 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
+		//$form->add('submit', SubmitType::class, array('label' => 'Valider'));
         $form->handleRequest($request);
-
+		
+		//a remplacer par l'user en session
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
+		$user = $repository->findOneById(1);
+		
         if ($form->isSubmitted() && $form->isValid()) {
+			$article->setEcritPar($user)
+                    ->setDatePublication(new \Datetime())
+                    ->setDateModif(new \Datetime())
+                    ->setActive(false);
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush($article);
@@ -45,39 +56,11 @@ class ArticleController extends Controller
             return $this->redirectToRoute('article_show', array('id' => $article->getId()));
         }
 
-        return $this->render('article/new.html.twig', array(
+        return $this->render('article/new.html.twig', array( //   BlogBundle:Article:new.html.twig
             'article' => $article,
             'form' => $form->createView(),
         ));
     }
-
-    /*
-    public function newAction(Request $request)
-    {
-        $article = new Article();
-        $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
-        $form->add('submit', SubmitType::class, array('label' => 'Valider'));
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setUser(1)
-                    ->setDatePublication(new Date())
-                    ->setDateModif(new Date())
-                    ->setActive(false)
-                    ->setTheme(1);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush($article);
-
-            return $this->redirectToRoute('article_show', array('id' => $article->getId()));
-        }
-
-        return $this->render('BlogBundle:Article:new.html.twig ', array( //     article/new.html.twig
-            'article' => $article,
-            'form' => $form->createView(),
-        ));
-    }
-    */
 
     /**
      * Finds and displays a article entity.
@@ -85,10 +68,18 @@ class ArticleController extends Controller
      */
     public function showAction(Article $article)
     {
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaire');
+		$listecom = $repository->findByArticleAssocie($article->getId());
+		
+		$signcom = new SignalementCom();
+		$signalercom = $this->createForm('BlogBundle\Form\SignalementComType', $signcom);
+		
         $deleteForm = $this->createDeleteForm($article);
 
         return $this->render('article/show.html.twig', array(
             'article' => $article,
+			'listecom' => $listecom,
+			'signalercom' => $signalercom,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -104,6 +95,7 @@ class ArticleController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+			$article->setDateModif(new \Datetime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_edit', array('id' => $article->getId()));

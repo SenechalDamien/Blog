@@ -21,10 +21,6 @@ BlogBundle\Entity\Article:
         active:
             type: boolean
     manyToOne:
-        themeArticle:
-            targetEntity: Theme
-            inversedBy: articleAssocie
-            cascade: [persist]
         ecritPar:
             targetEntity: User
             mappedBy: article
@@ -36,4 +32,7 @@ BlogBundle\Entity\Article:
         signalement:
             targetEntity: SignalementArticle
             mappedBy: signal
-        
+    manyToMany:
+        themes:
+            targetEntity: Theme
+            mappedBy: articles

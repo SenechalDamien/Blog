@@ -5,10 +5,10 @@
 
     <table>
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
+            {#<tr>
+               <th>Id</th>
+               <td>{{ article.id }}</td>
+            </tr>#}
             <tr>
                 <th>Contenu</th>
                 <td>{{ article.contenu }}</td>
@@ -26,22 +26,48 @@
                 <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Active</th>
+                <th>Validé</th>
                 <td>{% if article.active %}Yes{% else %}No{% endif %}</td>
             </tr>
         </tbody>
     </table>
-
+	
+	<h3>Commentaires</h3>
+	<table>
+		<tr>
+			<td><b>Pseudo</b></td>
+			<td><b>commentaire</b></td>
+			<td><b>note</b></td>
+		</tr>
+		{% set moyenne = 0 %}
+		{% set i = 0 %}
+		{% for com in listecom %}
+			{% set i = i+1 %}
+			{% set moyenne = moyenne+com.note %}
+			<tr>
+				<td>{{com.commentePar}}</td>
+				<td>{{com.contenu}}</td>
+				<td>{{com.note}}</td>
+				<td>
+					<a href="">Signaler</a>
+				</td>
+			</tr>
+		{% endfor %}
+		{% set moyenne = moyenne/i %}
+	</table>
+	<br>
+		<h4>Moyenne globale : {{moyenne}}</h4>
+		
     <ul>
         <li>
-            <a href="{{ path('article_index') }}">Back to the list</a>
+            <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
         </li>
         <li>
-            <a href="{{ path('article_edit', { 'id': article.id }) }}">Edit</a>
+            <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Suppimer">
             {{ form_end(delete_form) }}
         </li>
     </ul>

@@ -6,14 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ArticleType extends AbstractType
+class CommentaireType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('contenu')->add('titre')->add('themes'); // ->add('dateModif')->add('datePublication')->add('active')->add('ecritPar')
+        $builder->add('contenu')->add('note')->add('commentePar')->add('articleAssocie')        ;
     }
     
     /**
@@ -22,7 +22,7 @@ class ArticleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'BlogBundle\Entity\Article'
+            'data_class' => 'BlogBundle\Entity\Commentaire'
         ));
     }
 
@@ -31,7 +31,7 @@ class ArticleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'blogbundle_article';
+        return 'blogbundle_commentaire';
     }
 
 

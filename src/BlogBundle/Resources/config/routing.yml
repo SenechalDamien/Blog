@@ -2,6 +2,14 @@ blog_article:
     resource: "@BlogBundle/Resources/config/routing/article.yml"
     prefix:   /article
 
+blog_commentaire:
+    resource: "@BlogBundle/Resources/config/routing/commentaire.yml"
+    prefix:   /commentaire
+
+blog_signalementcom:
+    resource: "@BlogBundle/Resources/config/routing/signalementcom.yml"
+    prefix:   /signalementcom
+
 blog_homepage:
     path:     /
     defaults: { _controller: BlogBundle:Default:index }

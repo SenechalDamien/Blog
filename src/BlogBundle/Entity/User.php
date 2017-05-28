@@ -8,7 +8,7 @@ namespace BlogBundle\Entity;
 class User
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -23,15 +23,56 @@ class User
     private $mdp;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $active;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comSignale;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articleSignale;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $theme;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $article;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $com;
+
+    /**
+     * @var \BlogBundle\Entity\Role
+     */
+    private $role;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comSignale = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articleSignale = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->theme = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->article = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->com = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -103,157 +144,12 @@ class User
     /**
      * Get active
      *
-     * @return bool
+     * @return boolean
      */
     public function getActive()
     {
         return $this->active;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $theme;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $role;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->theme = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add theme
-     *
-     * @param \BlogBundle\Entity\Theme $theme
-     *
-     * @return User
-     */
-    public function addTheme(\BlogBundle\Entity\Theme $theme)
-    {
-        $this->theme[] = $theme;
-
-        return $this;
-    }
-
-    /**
-     * Remove theme
-     *
-     * @param \BlogBundle\Entity\Theme $theme
-     */
-    public function removeTheme(\BlogBundle\Entity\Theme $theme)
-    {
-        $this->theme->removeElement($theme);
-    }
-
-    /**
-     * Get theme
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
-
-    /**
-     * Add role
-     *
-     * @param \BlogBundle\Entity\Role $role
-     *
-     * @return User
-     */
-    public function addRole(\BlogBundle\Entity\Role $role)
-    {
-        $this->role[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param \BlogBundle\Entity\Role $role
-     */
-    public function removeRole(\BlogBundle\Entity\Role $role)
-    {
-        $this->role->removeElement($role);
-    }
-
-    /**
-     * Get role
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $specialite;
-
-
-    /**
-     * Add specialite
-     *
-     * @param \BlogBundle\Entity\Theme $specialite
-     *
-     * @return User
-     */
-    public function addSpecialite(\BlogBundle\Entity\Theme $specialite)
-    {
-        $this->specialite[] = $specialite;
-
-        return $this;
-    }
-
-    /**
-     * Remove specialite
-     *
-     * @param \BlogBundle\Entity\Theme $specialite
-     */
-    public function removeSpecialite(\BlogBundle\Entity\Theme $specialite)
-    {
-        $this->specialite->removeElement($specialite);
-    }
-
-    /**
-     * Get specialite
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSpecialite()
-    {
-        return $this->specialite;
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $comSignale;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articleSignale;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $article;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $com;
-
 
     /**
      * Add comSignale
@@ -324,6 +220,40 @@ class User
     }
 
     /**
+     * Add theme
+     *
+     * @param \BlogBundle\Entity\Theme $theme
+     *
+     * @return User
+     */
+    public function addTheme(\BlogBundle\Entity\Theme $theme)
+    {
+        $this->theme[] = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Remove theme
+     *
+     * @param \BlogBundle\Entity\Theme $theme
+     */
+    public function removeTheme(\BlogBundle\Entity\Theme $theme)
+    {
+        $this->theme->removeElement($theme);
+    }
+
+    /**
+     * Get theme
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
      * Add article
      *
      * @param \BlogBundle\Entity\Article $article
@@ -360,11 +290,11 @@ class User
     /**
      * Add com
      *
-     * @param \BlogBundle\Entity\Comentaire $com
+     * @param \BlogBundle\Entity\Commentaire $com
      *
      * @return User
      */
-    public function addCom(\BlogBundle\Entity\Comentaire $com)
+    public function addCom(\BlogBundle\Entity\Commentaire $com)
     {
         $this->com[] = $com;
 
@@ -374,9 +304,9 @@ class User
     /**
      * Remove com
      *
-     * @param \BlogBundle\Entity\Comentaire $com
+     * @param \BlogBundle\Entity\Commentaire $com
      */
-    public function removeCom(\BlogBundle\Entity\Comentaire $com)
+    public function removeCom(\BlogBundle\Entity\Commentaire $com)
     {
         $this->com->removeElement($com);
     }
@@ -404,4 +334,19 @@ class User
 
         return $this;
     }
+
+    /**
+     * Get role
+     *
+     * @return \BlogBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+	
+	public function __toString(){
+		return $this->login;
+	}
 }
+

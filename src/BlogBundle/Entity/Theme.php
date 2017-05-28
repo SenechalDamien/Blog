@@ -8,7 +8,7 @@ namespace BlogBundle\Entity;
 class Theme
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -18,15 +18,33 @@ class Theme
     private $nom;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $active;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -74,32 +92,11 @@ class Theme
     /**
      * Get active
      *
-     * @return bool
+     * @return boolean
      */
     public function getActive()
     {
         return $this->active;
-    }
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $users;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $articleAssocie;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->articleAssocie = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -137,36 +134,41 @@ class Theme
     }
 
     /**
-     * Add articleAssocie
+     * Add article
      *
-     * @param \BlogBundle\Entity\Article $articleAssocie
+     * @param \BlogBundle\Entity\Article $article
      *
      * @return Theme
      */
-    public function addArticleAssocie(\BlogBundle\Entity\Article $articleAssocie)
+    public function addArticle(\BlogBundle\Entity\Article $article)
     {
-        $this->articleAssocie[] = $articleAssocie;
+        $this->articles[] = $article;
 
         return $this;
     }
 
     /**
-     * Remove articleAssocie
+     * Remove article
      *
-     * @param \BlogBundle\Entity\Article $articleAssocie
+     * @param \BlogBundle\Entity\Article $article
      */
-    public function removeArticleAssocie(\BlogBundle\Entity\Article $articleAssocie)
+    public function removeArticle(\BlogBundle\Entity\Article $article)
     {
-        $this->articleAssocie->removeElement($articleAssocie);
+        $this->articles->removeElement($article);
     }
 
     /**
-     * Get articleAssocie
+     * Get articles
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticleAssocie()
+    public function getArticles()
     {
-        return $this->articleAssocie;
+        return $this->articles;
     }
+	
+	public function __toString(){
+		return $this->nom;
+	}
 }
+

@@ -8,7 +8,7 @@ namespace BlogBundle\Entity;
 class Role
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
@@ -21,7 +21,7 @@ class Role
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -51,33 +51,5 @@ class Role
     {
         return $this->nom;
     }
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    private $user;
-
-
-    /**
-     * Set user
-     *
-     * @param \BlogBundle\Entity\User $user
-     *
-     * @return Role
-     */
-    public function setUser(\BlogBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \BlogBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
 }
+

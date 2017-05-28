@@ -8,12 +8,12 @@ namespace BlogBundle\Entity;
 class SignalementArticle
 {
     /**
-     * @var int
+     * @var integer
      */
     private $id;
 
     /**
-     * @var bool
+     * @var boolean
      */
     private $active;
 
@@ -22,11 +22,26 @@ class SignalementArticle
      */
     private $date;
 
+    /**
+     * @var string
+     */
+    private $raison;
+
+    /**
+     * @var \BlogBundle\Entity\User
+     */
+    private $signalePar;
+
+    /**
+     * @var \BlogBundle\Entity\Article
+     */
+    private $signale;
+
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -50,7 +65,7 @@ class SignalementArticle
     /**
      * Get active
      *
-     * @return bool
+     * @return boolean
      */
     public function getActive()
     {
@@ -80,21 +95,6 @@ class SignalementArticle
     {
         return $this->date;
     }
-    /**
-     * @var string
-     */
-    private $raison;
-
-    /**
-     * @var \BlogBundle\Entity\User
-     */
-    private $signalePar;
-
-    /**
-     * @var \BlogBundle\Entity\Article
-     */
-    private $signale;
-
 
     /**
      * Set raison
@@ -168,3 +168,4 @@ class SignalementArticle
         return $this->signale;
     }
 }
+
