@@ -349,4 +349,3 @@ class User
 		return $this->login;
 	}
 }
-

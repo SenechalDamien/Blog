@@ -185,4 +185,3 @@ class Commentaire
         return $this->articleAssocie;
     }
 }
-

@@ -168,4 +168,3 @@ class SignalementCom
         return $this->signale;
     }
 }
-

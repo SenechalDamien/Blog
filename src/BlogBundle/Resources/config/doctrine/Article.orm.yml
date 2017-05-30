@@ -35,4 +35,5 @@ BlogBundle\Entity\Article:
     manyToMany:
         themes:
             targetEntity: Theme
-            mappedBy: articles
+            inversedBy: articles
+            cascade: [ persist ]

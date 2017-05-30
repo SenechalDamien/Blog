@@ -323,4 +323,3 @@ class Article
         return $this->themes;
     }
 }
-

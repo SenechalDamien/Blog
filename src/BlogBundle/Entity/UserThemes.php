@@ -110,4 +110,3 @@ class UserThemes
         return $this->aime;
     }
 }
-
