@@ -39,16 +39,18 @@ class ArticleController extends Controller
         $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
 		//$form->add('submit', SubmitType::class, array('label' => 'Valider'));
         $form->handleRequest($request);
-		
+
 		//a remplacer par l'user en session
 		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
 		$user = $repository->findOneById(1);
 		
         if ($form->isSubmitted() && $form->isValid()) {
+			//die(var_dump($form->getData()));
 			$article->setEcritPar($user)
                     ->setDatePublication(new \Datetime())
                     ->setDateModif(new \Datetime())
                     ->setActive(false);
+					//->addTheme($form->getData('themes'))
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush($article);

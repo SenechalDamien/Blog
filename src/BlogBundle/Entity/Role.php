@@ -51,6 +51,7 @@ class Role implements RoleInterface
     {
         return $this->nom;
     }
+
     /**
      * @var string
      */

@@ -53,11 +53,14 @@
 				</td>
 			</tr>
 		{% endfor %}
-		{% set moyenne = moyenne/i %}
+		{% if i > 0 %}
+			{% set moyenne = moyenne/i %}
+		{% endif %}
 	</table>
 	<br>
+	{% if i > 0 %}
 		<h4>Moyenne globale : {{moyenne}}</h4>
-		
+	{% endif %}
     <ul>
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
