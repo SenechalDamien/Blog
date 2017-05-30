@@ -25,10 +25,6 @@
                 <th>Datepublication</th>
                 <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
             </tr>
-            <tr>
-                <th>Validé</th>
-                <td>{% if article.active %}Yes{% else %}No{% endif %}</td>
-            </tr>
         </tbody>
     </table>
 	

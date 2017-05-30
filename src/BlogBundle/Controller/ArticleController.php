@@ -49,7 +49,7 @@ class ArticleController extends Controller
 			$article->setEcritPar($user)
                     ->setDatePublication(new \Datetime())
                     ->setDateModif(new \Datetime())
-                    ->setActive(false);
+                    ->setActive(true);
 					//->addTheme($form->getData('themes'))
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
