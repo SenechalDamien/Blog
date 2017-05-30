@@ -1,6 +1,7 @@
 <?php
 
 namespace BlogBundle\Entity;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -12,16 +13,6 @@ class User implements UserInterface, \Serializable {
      * @var integer
      */
     private $id;
-
-    /**
-     * @var string
-     */
-    private $login;
-
-    /**
-     * @var string
-     */
-    private $mdp;
 
     /**
      * @var boolean
@@ -76,50 +67,6 @@ class User implements UserInterface, \Serializable {
      */
     public function getId() {
         return $this->id;
-    }
-
-    /**
-     * Set login
-     *
-     * @param string $login
-     *
-     * @return User
-     */
-    public function setLogin($login) {
-        $this->login = $login;
-
-        return $this;
-    }
-
-    /**
-     * Get login
-     *
-     * @return string
-     */
-    public function getLogin() {
-        return $this->login;
-    }
-
-    /**
-     * Set mdp
-     *
-     * @param string $mdp
-     *
-     * @return User
-     */
-    public function setMdp($mdp) {
-        $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    /**
-     * Get mdp
-     *
-     * @return string
-     */
-    public function getMdp() {
-        return $this->mdp;
     }
 
     /**
@@ -321,10 +268,6 @@ class User implements UserInterface, \Serializable {
         return $this->roles->toArray();
     }
 
-    public function __toString() {
-        return $this->login;
-    }
-
     /**
      * @var string
      */
@@ -393,14 +336,15 @@ class User implements UserInterface, \Serializable {
 
     public function unserialize($serialized) {
         list (
-            $this->id,
-            $this->username,
-            $this->password,
-        ) = unserialize($serialized);
+                $this->id,
+                $this->username,
+                $this->password,
+                ) = unserialize($serialized);
     }
-    
-    public function eraseCredentials(){}
 
+    public function eraseCredentials() {
+        
+    }
 
     /**
      * Add role
@@ -409,8 +353,7 @@ class User implements UserInterface, \Serializable {
      *
      * @return User
      */
-    public function addRole(\BlogBundle\Entity\Role $role)
-    {
+    public function addRole(\BlogBundle\Entity\Role $role) {
         $this->roles[] = $role;
 
         return $this;
@@ -421,12 +364,12 @@ class User implements UserInterface, \Serializable {
      *
      * @param \BlogBundle\Entity\Role $role
      */
-    public function removeRole(\BlogBundle\Entity\Role $role)
-    {
+    public function removeRole(\BlogBundle\Entity\Role $role) {
         $this->roles->removeElement($role);
     }
-	
-	public function __toString(){
-		return $this->login;
-	}
+
+    public function __toString() {
+        return $this->username;
+    }
+
 }
