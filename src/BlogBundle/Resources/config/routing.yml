@@ -23,3 +23,15 @@ login_check:
     
 logout:
     path:     /logout
+     
+blog_user:
+    resource: "@BlogBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+    
+blog_theme:
+    resource: "@BlogBundle/Resources/config/routing/theme.yml"
+    prefix:   /theme
+    
+blog_signalementarticle:
+    resource: "@BlogBundle/Resources/config/routing/signalementarticle.yml"
+    prefix:   /signalementarticle

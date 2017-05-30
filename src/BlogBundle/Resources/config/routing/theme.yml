@@ -1,0 +1,24 @@
+theme_index:
+    path:     /
+    defaults: { _controller: "BlogBundle:Theme:index" }
+    methods:  GET
+
+theme_show:
+    path:     /{id}/show
+    defaults: { _controller: "BlogBundle:Theme:show" }
+    methods:  GET
+
+theme_new:
+    path:     /new
+    defaults: { _controller: "BlogBundle:Theme:new" }
+    methods:  [GET, POST]
+
+theme_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BlogBundle:Theme:edit" }
+    methods:  [GET, POST]
+
+theme_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "BlogBundle:Theme:delete" }
+    methods:  DELETE

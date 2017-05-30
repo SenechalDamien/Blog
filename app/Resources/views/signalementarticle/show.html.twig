@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Signalementarticle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ signalementArticle.id }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{% if signalementArticle.active %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if signalementArticle.date %}{{ signalementArticle.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Raison</th>
+                <td>{{ signalementArticle.raison }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('signalementarticle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('signalementarticle_edit', { 'id': signalementArticle.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

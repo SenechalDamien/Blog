@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Signalementarticles list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Active</th>
+                <th>Date</th>
+                <th>Raison</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for signalementArticle in signalementArticles %}
+            <tr>
+                <td><a href="{{ path('signalementarticle_show', { 'id': signalementArticle.id }) }}">{{ signalementArticle.id }}</a></td>
+                <td>{% if signalementArticle.active %}Yes{% else %}No{% endif %}</td>
+                <td>{% if signalementArticle.date %}{{ signalementArticle.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ signalementArticle.raison }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('signalementarticle_show', { 'id': signalementArticle.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('signalementarticle_edit', { 'id': signalementArticle.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('signalementarticle_new') }}">Create a new signalementArticle</a>
+        </li>
+    </ul>
+{% endblock %}
