@@ -318,6 +318,7 @@ class User implements UserInterface, \Serializable {
      * @return \BlogBundle\Entity\Role
      */
     public function getRoles() {
+        return $this->roles;
     }
 
     public function __toString() {
@@ -400,28 +401,4 @@ class User implements UserInterface, \Serializable {
     
     public function eraseCredentials(){}
 
-
-    /**
-     * Add role
-     *
-     * @param \BlogBundle\Entity\Role $role
-     *
-     * @return User
-     */
-    public function addRole(\BlogBundle\Entity\Role $role)
-    {
-        $this->roles[] = $role;
-
-        return $this;
-    }
-
-    /**
-     * Remove role
-     *
-     * @param \BlogBundle\Entity\Role $role
-     */
-    public function removeRole(\BlogBundle\Entity\Role $role)
-    {
-        $this->roles->removeElement($role);
-    }
 }

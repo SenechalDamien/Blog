@@ -9,6 +9,11 @@ BlogBundle\Entity\Role:
             generator:
                 strategy: AUTO
     fields:
-        nom:
+        role:
             type: string
             length: 255
+            unique: true
+    manyToMany:
+        users:
+            targetEntity: User
+            mappedBy: roles

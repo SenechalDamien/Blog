@@ -13,3 +13,13 @@ blog_signalementcom:
 blog_homepage:
     path:     /
     defaults: { _controller: BlogBundle:Default:index }
+    
+login:
+    path:     /login
+    defaults: { _controller: BlogBundle:Security:login }
+
+login_check:
+    path:     /login_check
+    
+logout:
+    path:     /logout

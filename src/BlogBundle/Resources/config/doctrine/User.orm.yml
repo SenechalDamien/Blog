@@ -9,11 +9,11 @@ BlogBundle\Entity\User:
             generator:
                 strategy: AUTO
     fields:
-        login:
+        username:
             type: string
             length: 255
             unique: true
-        mdp:
+        password:
             type: string
             length: 255
         active:
@@ -26,7 +26,7 @@ BlogBundle\Entity\User:
             targetEntity: SignalementArticle
             mappedBy: signalePar
         theme:
-            targetEntity: Theme
+            targetEntity: UserThemes
             mappedBy: aimePar
         article:
             targetEntity: Article
@@ -34,6 +34,7 @@ BlogBundle\Entity\User:
         com:
             targetEntity: Commentaire
             mappedBy: commentePar
-    manyToOne:
-        role:
+    manyToMany:
+        roles:
             targetEntity: Role
+            inversedBy: users
