@@ -24,15 +24,21 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/(user|theme|article|commentaire|signalementarticle|signalementcom|login_check|logout)
             form_login: 
                 login_path: /login
                 check_path: /login_check
             logout:
                 path:   /logout
-                target: /
+                target: /acceuil
+                
+        accueil:
+            pattern: ^/
+            anonymous: ~
+                
+    access_control:
+        - { path: ^/(user), roles: ROLE_ADMIN }
+        - { path: ^/(theme), roles: ROLE_ADMIN }
         
-        #accueil:
-         #   pattern: ^/
-          #  anonymous: ~
+        
             

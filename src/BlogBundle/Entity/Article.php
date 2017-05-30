@@ -322,4 +322,8 @@ class Article
     {
         return $this->themes;
     }
+    
+    public function __toString() {
+        return $this->titre;
+    }
 }
