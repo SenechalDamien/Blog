@@ -83,6 +83,7 @@ class ArticleController extends Controller
 			'listecom' => $listecom,
 			'signalercom' => $signalercom,
             'delete_form' => $deleteForm->createView(),
+            'user' => $this->getUser(),
         ));
     }
 
@@ -125,6 +126,12 @@ class ArticleController extends Controller
             $em->flush($article);
         }
 
+        return $this->redirectToRoute('article_index');
+    }
+
+    public function addMarqueUserAction(Article $article)
+    {
+        $article->addMarquesParUser($this->getUser());
         return $this->redirectToRoute('article_index');
     }
 

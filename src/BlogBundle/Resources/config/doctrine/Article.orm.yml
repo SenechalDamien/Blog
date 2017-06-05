@@ -37,3 +37,6 @@ BlogBundle\Entity\Article:
             targetEntity: Theme
             inversedBy: articles
             cascade: [ persist ]
+        marques_par_users:
+            targetEntity: User
+            inversedBy: articles_marques

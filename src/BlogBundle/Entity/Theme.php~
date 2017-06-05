@@ -5,8 +5,8 @@ namespace BlogBundle\Entity;
 /**
  * Theme
  */
-class Theme
-{
+class Theme {
+
     /**
      * @var integer
      */
@@ -35,8 +35,7 @@ class Theme
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->articles = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -46,8 +45,7 @@ class Theme
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -58,8 +56,7 @@ class Theme
      *
      * @return Theme
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -70,8 +67,7 @@ class Theme
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
@@ -82,8 +78,7 @@ class Theme
      *
      * @return Theme
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
 
         return $this;
@@ -94,8 +89,7 @@ class Theme
      *
      * @return boolean
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
@@ -106,8 +100,7 @@ class Theme
      *
      * @return Theme
      */
-    public function addUser(\BlogBundle\Entity\UserThemes $user)
-    {
+    public function addUser(\BlogBundle\Entity\UserThemes $user) {
         $this->users[] = $user;
 
         return $this;
@@ -118,8 +111,7 @@ class Theme
      *
      * @param \BlogBundle\Entity\UserThemes $user
      */
-    public function removeUser(\BlogBundle\Entity\UserThemes $user)
-    {
+    public function removeUser(\BlogBundle\Entity\UserThemes $user) {
         $this->users->removeElement($user);
     }
 
@@ -128,8 +120,7 @@ class Theme
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
-    {
+    public function getUsers() {
         return $this->users;
     }
 
@@ -140,8 +131,7 @@ class Theme
      *
      * @return Theme
      */
-    public function addArticle(\BlogBundle\Entity\Article $article)
-    {
+    public function addArticle(\BlogBundle\Entity\Article $article) {
         $this->articles[] = $article;
 
         return $this;
@@ -152,8 +142,7 @@ class Theme
      *
      * @param \BlogBundle\Entity\Article $article
      */
-    public function removeArticle(\BlogBundle\Entity\Article $article)
-    {
+    public function removeArticle(\BlogBundle\Entity\Article $article) {
         $this->articles->removeElement($article);
     }
 
@@ -162,12 +151,12 @@ class Theme
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArticles()
-    {
+    public function getArticles() {
         return $this->articles;
     }
-	
-	public function __toString(){
-		return $this->nom;
-	}
+
+    public function __toString() {
+        return $this->nom;
+    }
+
 }

@@ -167,4 +167,8 @@ class SignalementCom
     {
         return $this->signale;
     }
+    
+    public function __toString() {
+        return $this->raison;
+    }
 }

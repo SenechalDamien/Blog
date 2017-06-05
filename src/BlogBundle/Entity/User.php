@@ -372,4 +372,43 @@ class User implements UserInterface, \Serializable {
         return $this->username;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $articles_marques;
+
+
+    /**
+     * Add articlesMarque
+     *
+     * @param \BlogBundle\Entity\Article $articlesMarque
+     *
+     * @return User
+     */
+    public function addArticlesMarque(\BlogBundle\Entity\Article $articlesMarque)
+    {
+        $this->articles_marques[] = $articlesMarque;
+
+        return $this;
+    }
+
+    /**
+     * Remove articlesMarque
+     *
+     * @param \BlogBundle\Entity\Article $articlesMarque
+     */
+    public function removeArticlesMarque(\BlogBundle\Entity\Article $articlesMarque)
+    {
+        $this->articles_marques->removeElement($articlesMarque);
+    }
+
+    /**
+     * Get articlesMarques
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticlesMarques()
+    {
+        return $this->articles_marques;
+    }
 }
