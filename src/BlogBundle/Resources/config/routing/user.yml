@@ -22,3 +22,7 @@ user_delete:
     path:     /{id}/delete
     defaults: { _controller: "BlogBundle:User:delete" }
     methods:  DELETE
+
+user_add_article_marque:
+    path: /{id}/marqueArticle/{$article}
+    defaults: { _controller: "BlogBundle:User:marquerArticle" }

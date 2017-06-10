@@ -184,4 +184,8 @@ class Commentaire
     {
         return $this->articleAssocie;
     }
+    
+    public function __toString() {
+        return $this->contenu;
+    }
 }

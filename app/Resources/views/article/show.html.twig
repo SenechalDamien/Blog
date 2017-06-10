@@ -65,6 +65,9 @@
             <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
         </li>
         <li>
+            <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
+        </li>
+        <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Suppimer">
             {{ form_end(delete_form) }}

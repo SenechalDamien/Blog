@@ -38,3 +38,6 @@ BlogBundle\Entity\User:
         roles:
             targetEntity: Role
             inversedBy: users
+        articles_marques:
+            targetEntity: Article
+            mappedBy: marques_par_users
