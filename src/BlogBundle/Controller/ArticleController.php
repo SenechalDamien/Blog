@@ -41,8 +41,9 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
 		//a remplacer par l'user en session
-		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
-		$user = $repository->findOneById(1);
+		//$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
+		//$user = $repository->findOneById(1);
+		$user = $this->getUser();
 		
         if ($form->isSubmitted() && $form->isValid()) {
 			//die(var_dump($form->getData()));
