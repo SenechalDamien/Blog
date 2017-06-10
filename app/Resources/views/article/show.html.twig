@@ -56,10 +56,11 @@
 		{% endif %}
 	</table>
 	<br>
-    <a href="{{ path('commentaire_new', { 'article': article }) }}">Ecrire un commentaire</a>
-
+    {% if article.ecritPar.id != user.id %}
+        <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
+    {% endif %}
 	{% if i > 0 %}
-		<h4>Moyenne globale : {{moyenne}}</h4>
+		<h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
 	{% endif %}
     <ul>
         <li>

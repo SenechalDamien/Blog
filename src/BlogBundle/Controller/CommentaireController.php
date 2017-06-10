@@ -32,11 +32,14 @@ class CommentaireController extends Controller
      * Creates a new commentaire entity.
      *
      */
-    public function newAction(Request $request, Article $article)
+    public function newAction(Request $request, Int $articleId)
     {
         $commentaire = new Commentaire();
         $form = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
         $form->handleRequest($request);
+		
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Article');
+		$article = $repository->findOneById($articleId);
 		
 		$user = $this->getUser();
 
