@@ -22,7 +22,10 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('BlogBundle:Article')->findAll();
+        if(false === $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+            $articles = $em->getRepository('BlogBundle:Article')->findAll(); //findArticlesNonLus($this->getUser());
+        else
+            $articles = $em->getRepository('BlogBundle:Article')->findAll();//findArticlesNonLus($this->
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
