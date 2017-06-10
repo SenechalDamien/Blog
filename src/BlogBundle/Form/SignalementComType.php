@@ -13,7 +13,7 @@ class SignalementComType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('active')->add('date')->add('raison')->add('signalePar')->add('signale');
+        $builder->add('raison'); //->add('active')->add('date')->add('signalePar')->add('signale')
     }
     
     /**

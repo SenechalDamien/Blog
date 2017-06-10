@@ -46,7 +46,7 @@
 				<td>{{com.note}}</td>
                 {% if article.ecritPar.id == user.id %}
 				    <td>
-					    <a href="">Signaler</a>
+					    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
 				    </td>
                 {% endif %}
 			</tr>
@@ -74,6 +74,9 @@
         {% if article.ecritPar.id != user.id %}
             <li>
                 <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
+            </li>
+            <li>
+                <a href="{{ path('signalementarticle_new', { 'articleId': article.id }) }}">Signaler cet article</a>
             </li>
         {% endif %}
         {% if article.ecritPar.id == user.id %}
