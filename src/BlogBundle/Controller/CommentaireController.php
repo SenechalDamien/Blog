@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Commentaire;
+use BlogBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,13 +32,17 @@ class CommentaireController extends Controller
      * Creates a new commentaire entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Article $article)
     {
         $commentaire = new Commentaire();
         $form = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
         $form->handleRequest($request);
+		
+		$user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+			$commentaire->setCommentePar($user)
+                    ->setArticleAssocie($article);
             $em = $this->getDoctrine()->getManager();
             $em->persist($commentaire);
             $em->flush($commentaire);
