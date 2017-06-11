@@ -29,6 +29,11 @@ class ArticleController extends Controller
 		
 		$user = $this->getUser();
 		
+        if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
+        else
+            $articles = $em->getRepository('BlogBundle:Article')->findAll();
+		
 		$rolesUser = $user->getRoles()[0]->getRole();
 
 		/*foreach ($user->getRoles() as $val){
@@ -155,7 +160,9 @@ class ArticleController extends Controller
 
     public function addMarqueUserAction(Article $article)
     {
+        $em = $this->getDoctrine()->getManager();
         $article->addMarquesParUser($this->getUser());
+        $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
 

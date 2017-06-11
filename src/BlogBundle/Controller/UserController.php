@@ -106,11 +106,6 @@ class UserController extends Controller
         return $this->redirectToRoute('user_index');
     }
 
-    public function marquerArticleAction(User $user, Article $article)
-    {
-        $user->addArticlesMarques($article);
-    }
-
 
     /**
      * Creates a form to delete a user entity.
