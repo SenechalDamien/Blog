@@ -28,11 +28,24 @@ class CommentaireController extends Controller
         ));
     }
 
+    public function index_mes_commentairesAction()
+    {
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $commentaires = $em->getRepository('BlogBundle:Commentaire')->findMesCommentaires($user);
+
+        return $this->render('commentaire/index.html.twig', array(
+            'commentaires' => $commentaires,
+        ));
+    }
+
     /**
      * Creates a new commentaire entity.
      *
      */
-    public function newAction(Request $request, Int $articleId)
+    public function newAction(Request $request, $articleId)
     {
         $commentaire = new Commentaire();
         $form = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
@@ -79,6 +92,7 @@ class CommentaireController extends Controller
      */
     public function editAction(Request $request, Commentaire $commentaire)
     {
+
         $deleteForm = $this->createDeleteForm($commentaire);
         $editForm = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
         $editForm->handleRequest($request);
