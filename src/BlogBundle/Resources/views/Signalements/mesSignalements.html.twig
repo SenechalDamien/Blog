@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Mes signalements</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Article Signalé</th>
+                <th>Date</th>
+                <th>raison</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for signalement in signalementsArt %}
+            <tr>
+                <td>{{signalement.signale.titre}}</td>
+                <td>{{ signalement.date|date('d-m-Y') }}</td>
+				<td>{{ signalement.raison }}</td>
+				<td>
+					 <a href="{{ path('signalementarticle_delete', { 'id': signalement.id }) }}">Supprimer</a>
+					{#{{ form_start(delete_form) }}
+					<input type="submit" value="Supprimer">
+					{{ form_end(delete_form) }}#}
+				</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+	<br>
+	 <table>
+        <thead>
+            <tr>
+                <th>Commentaire Signalé</th>
+                <th>Date</th>
+                <th>raison</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for signalement in signalementsCom %}
+            <tr>
+                <td>{{ signalement.signale.contenu }}</td>
+                <td>{{ signalement.date|date('d-m-Y') }}</td>
+				<td>{{ signalement.raison }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

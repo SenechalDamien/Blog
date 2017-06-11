@@ -1,4 +1,4 @@
-    <a href="{{ path('article_index') }}">Accueil</a>
+<a href="{{ path('article_index') }}">Accueil</a>
 {% if is_granted('ROLE_ADMIN')%}
     <a href="{{ path('user_index') }}">Utilisateurs</a>
     <a href="{{ path('theme_index') }}">Gestion Themes</a>
@@ -7,8 +7,9 @@
     <a href="{{ path('commentaire_show_mes_commentaires') }}">Voir mes critiques</a>
     <a>Voir mes signalements</a>
 {% elseif is_granted('ROLE_AUTEUR')%}
-    <a>Voir mes articles</a>
-    <a>Créer un article</a>
+    <a href="{{ path('article_mesArticles') }}">Voir mes articles</a>
+    <a href="{{ path('article_new') }}">Créer un article</a>
 {% elseif is_granted('ROLE_LECTEUR')%}
     <a>Rechercher un article</a>
 {% endif %}
+{#<a href="{{ path('') }}">Voir mes signalements</a>#}

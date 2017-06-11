@@ -35,3 +35,8 @@ blog_theme:
 blog_signalementarticle:
     resource: "@BlogBundle/Resources/config/routing/signalementarticle.yml"
     prefix:   /signalementarticle
+
+mesSignalements:
+    path:     /mesSignalements
+    defaults: { _controller: "BlogBundle:Signalement:mesSignalements" }
+    methods:  GET
