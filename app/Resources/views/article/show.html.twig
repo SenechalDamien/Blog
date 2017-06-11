@@ -43,11 +43,9 @@
 				<td>{{com.commentePar}}</td>
 				<td>{{com.contenu}}</td>
 				<td>{{com.note}}</td>
-                {% if article.ecritPar.id == app.user.id %}
 				    <td>
 					    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
 				    </td>
-                {% endif %}
 			</tr>
 		{% endfor %}
 		{% if i > 0 %}
