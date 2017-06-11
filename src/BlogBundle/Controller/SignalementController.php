@@ -37,7 +37,7 @@ class SignalementController extends Controller
 		$em = $this->getDoctrine()->getManager();
         $em->remove($em->getRepository('BlogBundle:SignalementArticle')->find($id));
         $em->flush();
-        return $this->redirectToRoute('theme_index')
+        return $this->redirectToRoute('theme_index');
 	}
 	
 	public function deleteSignComAction($id)
@@ -45,6 +45,6 @@ class SignalementController extends Controller
 		$em = $this->getDoctrine()->getManager();
         $em->remove($em->getRepository('BlogBundle:SignalementCom')->find($id));
         $em->flush();
-        return $this->redirectToRoute('theme_index')
+        return $this->redirectToRoute('theme_index');
 	}
 }
