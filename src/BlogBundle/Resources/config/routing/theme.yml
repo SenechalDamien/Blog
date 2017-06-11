@@ -1,7 +1,7 @@
-#theme_index:
- #   path:     /
-  #  defaults: { _controller: "BlogBundle:Theme:index" }
-   # methods:  GET
+theme_index:
+    path:     /
+    defaults: { _controller: "BlogBundle:Theme:index" }
+    methods:  GET
 
 #theme_show:
  #   path:     /{id}/show
@@ -22,3 +22,8 @@ theme_delete:
     path:     /{id}/delete
     defaults: { _controller: "BlogBundle:Theme:delete" }
     methods:  DELETE
+    
+theme_delete_link:
+    path:     /delete/{id}
+    defaults: { _controller: "BlogBundle:Theme:deletelink" }
+    methods:  GET
