@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\SignalementArticle;
+use BlogBundle\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,18 +32,27 @@ class SignalementArticleController extends Controller
      * Creates a new signalementArticle entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Int $articleId)
     {
         $signalementArticle = new Signalementarticle();
         $form = $this->createForm('BlogBundle\Form\SignalementArticleType', $signalementArticle);
         $form->handleRequest($request);
+		
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Article');
+		$article = $repository->findOneById($articleId);
+
+		$user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
+			$signalementArticle->setActive(true)
+			               ->setDate(new \Datetime())
+						   ->setSignalePar($user)
+						   ->setSignale($article);
             $em = $this->getDoctrine()->getManager();
             $em->persist($signalementArticle);
             $em->flush();
 
-            return $this->redirectToRoute('signalementarticle_show', array('id' => $signalementArticle->getId()));
+            return $this->redirectToRoute('article_show', array('id' => $article->getId()));
         }
 
         return $this->render('signalementarticle/new.html.twig', array(

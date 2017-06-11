@@ -9,7 +9,7 @@ commentaire_show:
     methods:  GET
 
 commentaire_new:
-    path:     /new
+    path:     /new/{articleId}
     defaults: { _controller: "BlogBundle:Commentaire:new" }
     methods:  [GET, POST]
 

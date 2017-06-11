@@ -3,6 +3,11 @@ article_index:
     defaults: { _controller: "BlogBundle:Article:index" }
     methods:  GET
 
+article_mesArticles:
+    path:     /mesArticles
+    defaults: { _controller: "BlogBundle:Article:mesArticles" }
+    methods:  GET
+
 article_show:
     path:     /{id}/show
     defaults: { _controller: "BlogBundle:Article:show" }

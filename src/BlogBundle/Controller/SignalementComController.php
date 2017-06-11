@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\SignalementCom;
+use BlogBundle\Entity\Commentaire;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -31,18 +32,27 @@ class SignalementComController extends Controller
      * Creates a new signalementCom entity.
      *
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Int $commentaireId)
     {
         $signalementCom = new Signalementcom();
         $form = $this->createForm('BlogBundle\Form\SignalementComType', $signalementCom);
         $form->handleRequest($request);
+		
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaire');
+		$commentaire = $repository->findOneById($commentaireId);
 
+		$user = $this->getUser();
+		
         if ($form->isSubmitted() && $form->isValid()) {
+			$signalementCom->setActive(true)
+			               ->setDate(new \Datetime())
+						   ->setSignalePar($user)
+						   ->setSignale($commentaire);
             $em = $this->getDoctrine()->getManager();
             $em->persist($signalementCom);
             $em->flush($signalementCom);
 
-            return $this->redirectToRoute('signalementcom_show', array('id' => $signalementCom->getId()));
+            return $this->redirectToRoute('article_show', array('id' => $commentaire->getArticleAssocie()->getId()));
         }
 
         return $this->render('signalementcom/new.html.twig', array(

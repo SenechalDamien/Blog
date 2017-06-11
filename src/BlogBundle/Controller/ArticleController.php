@@ -8,6 +8,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+//liste commentaires : que pour les admin (attention aux autres pages dans le meme genre)
+//comment faire un masque (ex : note commentaire que des int)
+
 /**
  * Article controller.
  *
@@ -22,12 +25,33 @@ class ArticleController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        if(false === $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
-            $articles = $em->getRepository('BlogBundle:Article')->findAll(); //findArticlesNonLus($this->getUser());
+        if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
         else
-            $articles = $em->getRepository('BlogBundle:Article')->findAll();//findArticlesNonLus($this->
+            $articles = $em->getRepository('BlogBundle:Article')->findAll();
+		$user = $this->getUser();
+		$rolesUser = $user->getRoles();
+		
+		/*foreach ($user->getRoles() as $val){
+			echo $val->getRole();
+		}*/
+		
+		//pourquoi tableau de roles ? Si qq1 est admin, il aura les 4 roles dans $user->getRoles()?
 
         return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+			'user' => $user,
+			'rolesUser' => $rolesUser
+        ));
+    }
+	
+	public function mesArticlesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('BlogBundle:Article')->findByEcritPar($this->getUser()->getId());
+
+        return $this->render('BlogBundle:Article:mesArticles.html.twig', array(  // article/index.html.twig
             'articles' => $articles,
         ));
     }
@@ -43,18 +67,15 @@ class ArticleController extends Controller
 		//$form->add('submit', SubmitType::class, array('label' => 'Valider'));
         $form->handleRequest($request);
 
-		//a remplacer par l'user en session
 		//$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
 		//$user = $repository->findOneById(1);
 		$user = $this->getUser();
 		
         if ($form->isSubmitted() && $form->isValid()) {
-			//die(var_dump($form->getData()));
 			$article->setEcritPar($user)
                     ->setDatePublication(new \Datetime())
                     ->setDateModif(new \Datetime())
                     ->setActive(true);
-					//->addTheme($form->getData('themes'))
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush($article);
@@ -135,7 +156,9 @@ class ArticleController extends Controller
 
     public function addMarqueUserAction(Article $article)
     {
+        $em = $this->getDoctrine()->getManager();
         $article->addMarquesParUser($this->getUser());
+        $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
 

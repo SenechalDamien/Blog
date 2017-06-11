@@ -14,7 +14,10 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 		//$query = $this->getEntityManager()->createQuery("SELECT a FROM BlogBundle:Article a WHERE a NOT IN (SELECT u.articles_marques FROM BlogBundle:User u where u.id = ?1)");
 		$query = $this->getEntityManager()->createQuery("
 			SELECT a FROM BlogBundle:Article a
-			JOIN a.marques_par_users u WITH u = :user");
+			WHERE a not in (
+			SELECT am from BlogBundle:User u
+			JOIN u.articles_marques am where u = :user)");
+			//JOIN a.marques_par_users u WITH u = :user");
 		$query->setParameter('user', $user);
 		$articles = $query->execute();
 		//var_dump($articles);

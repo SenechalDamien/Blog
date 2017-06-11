@@ -9,7 +9,7 @@ signalementarticle_show:
     methods:  GET
 
 signalementarticle_new:
-    path:     /new
+    path:     /new/{articleId}
     defaults: { _controller: "BlogBundle:SignalementArticle:new" }
     methods:  [GET, POST]
 

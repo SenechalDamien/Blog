@@ -10,12 +10,12 @@
                <td>{{ article.id }}</td>
             </tr>#}
             <tr>
-                <th>Contenu</th>
-                <td>{{ article.contenu }}</td>
-            </tr>
-            <tr>
                 <th>Titre</th>
                 <td>{{ article.titre }}</td>
+            </tr>
+			<tr>
+                <th>Contenu</th>
+                <td>{{ article.contenu }}</td>
             </tr>
             <tr>
                 <th>Datemodif</th>
@@ -44,9 +44,11 @@
 				<td>{{com.commentePar}}</td>
 				<td>{{com.contenu}}</td>
 				<td>{{com.note}}</td>
-				<td>
-					<a href="">Signaler</a>
-				</td>
+                {% if article.ecritPar.id == user.id %}
+				    <td>
+					    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
+				    </td>
+                {% endif %}
 			</tr>
 		{% endfor %}
 		{% if i > 0 %}
@@ -54,23 +56,35 @@
 		{% endif %}
 	</table>
 	<br>
+    {% if article.ecritPar.id != user.id %}
+        <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
+    {% endif %}
 	{% if i > 0 %}
-		<h4>Moyenne globale : {{moyenne}}</h4>
+		<h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
 	{% endif %}
     <ul>
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
         </li>
-        <li>
-            <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
-        </li>
-        <li>
-            <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Suppimer">
-            {{ form_end(delete_form) }}
-        </li>
+        {% if article.ecritPar.id == user.id %}
+            <li>
+                <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>			
+            </li>
+        {% endif %}
+        {% if article.ecritPar.id != user.id %}
+            <li>
+                <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
+            </li>
+            <li>
+                <a href="{{ path('signalementarticle_new', { 'articleId': article.id }) }}">Signaler cet article</a>
+            </li>
+        {% endif %}
+        {% if article.ecritPar.id == user.id %}
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Suppimer">
+                {{ form_end(delete_form) }}
+            </li>
+        {% endif %}
     </ul>
 {% endblock %}

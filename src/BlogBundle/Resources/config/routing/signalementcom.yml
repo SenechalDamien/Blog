@@ -9,7 +9,7 @@ signalementcom_show:
     methods:  GET
 
 signalementcom_new:
-    path:     /new
+    path:     /new/{commentaireId}
     defaults: { _controller: "BlogBundle:SignalementCom:new" }
     methods:  [GET, POST]
 
