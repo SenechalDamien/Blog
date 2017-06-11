@@ -23,4 +23,17 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 		//var_dump($articles);
 		return $articles;
 	}
+
+	public function findArticlesWithTitleOrAuthor($regex)
+	{
+		$query = $this->getEntityManager()->createQuery("
+			SELECT a FROM BlogBundle:Article a
+			JOIN a.ecritPar u
+			WHERE a.titre like :regex 
+			OR u.username like :regex");
+		$query->setParameter('regex', '%'.$regex.'%');
+		$articles = $query->execute();
+		//var_dump($articles);
+		return $articles;
+	}
 }
