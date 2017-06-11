@@ -32,3 +32,8 @@ article_add_marque_user:
     path:     /{id}/addMarqueUser
     defaults: { _controller: "BlogBundle:Article:addMarqueUser" }
     methods: [GET, POST]
+
+article_recherche:
+    path: /recherche/{regex}
+    defaults: { _controller: "BlogBundle:Article:recherche" }
+    methods: GET

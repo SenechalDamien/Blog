@@ -166,6 +166,24 @@ class ArticleController extends Controller
         return $this->redirectToRoute('article_index');
     }
 
+    public function rechercheAction($regex)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
+        
+        $user = $this->getUser();
+                
+        $rolesUser = $user->getRoles()[0]->getRole();
+
+        return $this->render('article/index.html.twig', array(
+            'articles' => $articles,
+            'user' => $user,
+            'rolesUser' => $rolesUser
+        ));
+    }
+
+
     /**
      * Creates a form to delete a article entity.
      *

@@ -1,6 +1,6 @@
-{% extends 'BlogBundle:default:layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block contenu %}
+{% block body %}
     <h1>Articles list</h1>
     {% if is_granted('ROLE_AUTEUR') %}
         <p>
