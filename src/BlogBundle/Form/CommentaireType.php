@@ -13,7 +13,7 @@ class CommentaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('contenu')->add('note'); //->add('commentePar')->add('articleAssocie')
+        $builder->add('contenu')->add('note',null, array('attr' => array('min' => 0,'max' => 5))); //->add('commentePar')->add('articleAssocie')
     }
     
     /**

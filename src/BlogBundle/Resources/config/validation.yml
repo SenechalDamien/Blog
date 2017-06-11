@@ -1,0 +1,6 @@
+BlogBundle\Entity\Commentaire:
+    properties:
+        note:
+            - Range:
+                min: 0
+                max: 5

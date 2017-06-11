@@ -56,7 +56,7 @@
 		{% endif %}
 	</table>
 	<br>
-    {% if article.ecritPar.id != user.id && is_granted('ROLE_CRITIQUE') %}
+    {% if article.ecritPar.id != user.id and is_granted('ROLE_CRITIQUE') %}
         <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
     {% endif %}
 	{% if i > 0 %}
