@@ -26,3 +26,8 @@ user_delete:
 user_add_article_marque:
     path: /{id}/marqueArticle/{$article}
     defaults: { _controller: "BlogBundle:User:marquerArticle" }
+
+critique_editer_specialites:
+    path: /editSpecialite
+    defaults: { _controller: "BlogBundle:User:editerSpecialite" }
+

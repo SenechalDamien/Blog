@@ -22,3 +22,7 @@ commentaire_delete:
     path:     /{id}/delete
     defaults: { _controller: "BlogBundle:Commentaire:delete" }
     methods:  DELETE
+
+commentaire_show_mes_commentaires:
+    path:     /mes_commentaires
+    defaults: { _controller: "BlogBundle:Commentaire:index_mes_commentaires" }

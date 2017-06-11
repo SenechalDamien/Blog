@@ -1,0 +1,14 @@
+    <a href="{{ path('article_index') }}">Accueil</a>
+{% if is_granted('ROLE_ADMIN')%}
+
+
+{% elseif is_granted('ROLE_AUTHEUR')%}
+    <a>Voir mes articles</a>
+    <a>Créer un article</a>
+{% elseif is_granted('ROLE_CRITIQUE')%}
+    <a href="{{ path('critique_editer_specialites') }}">Editer mes spécialités</a>
+    <a href="{{ path('commentaire_show_mes_commentaires') }}">Voir mes critiques</a>
+    <a>Voir mes signalements</a>
+{% elseif is_granted('ROLE_CRITIQUE')%}
+    <a>Rechercher un article</a>
+{% endif %}
