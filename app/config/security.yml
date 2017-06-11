@@ -24,16 +24,16 @@ security:
             security: false
 
         main:
-            pattern: ^/(user|theme|article|commentaire|signalementarticle|signalementcom|login_check|logout)
+            pattern: ^/(homepage|user|theme|article|commentaire|signalementarticle|signalementcom|login_check|logout)
             form_login: 
                 login_path: /login
                 check_path: /login_check
             logout:
                 path:   /logout
-                target: /acceuil
+                target: /login
                 
-        accueil:
-            pattern: ^/
+        login:
+            pattern: ^/(login)
             anonymous: ~
                 
     access_control:

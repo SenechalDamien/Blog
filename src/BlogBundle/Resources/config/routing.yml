@@ -10,8 +10,8 @@ blog_signalementcom:
     resource: "@BlogBundle/Resources/config/routing/signalementcom.yml"
     prefix:   /signalementcom
 
-blog_homepage:
-    path:     /
+homepage:
+    path:     /homepage
     defaults: { _controller: BlogBundle:Default:index }
     
 login:
