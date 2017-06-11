@@ -32,3 +32,5 @@ article_add_marque_user:
     path:     /{id}/addMarqueUser
     defaults: { _controller: "BlogBundle:Article:addMarqueUser" }
     methods: [GET, POST]
+
+

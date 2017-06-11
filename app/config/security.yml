@@ -39,6 +39,7 @@ security:
             anonymous: ~
                 
     access_control:
+        - { path: ^/(user/profil), roles: ROLE_LECTEUR }
         - { path: ^/(user), roles: ROLE_ADMIN }
         - { path: ^/(theme), roles: ROLE_ADMIN }
 
