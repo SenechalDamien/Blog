@@ -9,9 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-//liste commentaires : que pour les admin (attention aux autres pages dans le meme genre)
-//comment faire un masque (ex : note commentaire que des int)
-
 /**
  * Article controller.
  *

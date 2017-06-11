@@ -1,0 +1,9 @@
+signalementarticle_suppression:
+    path:     /{id}/delete
+    defaults: { _controller: "BlogBundle:Signalement:deleteSignArt" }
+    methods:  DELETE
+
+signalementcom_suppression:
+    path:     /{id}/delete
+    defaults: { _controller: "BlogBundle:Signalement:deleteSignCom" }
+    methods:  DELETE
