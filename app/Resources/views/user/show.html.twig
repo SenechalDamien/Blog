@@ -1,40 +1,31 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>Utilisateur</h1>
 
     <table>
         <tbody>
+            {% if is_granted('ROLE_ADMIN')%}
+                <tr>
+                    <th>Id</th>
+                    <td>{{ user.id }}</td>
+                </tr>
+            {% endif %}
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
+                <th>Login</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
-                <th>Password</th>
+                <th>Mot de passe</th>
                 <td>{{ user.password }}</td>
             </tr>
             <tr>
-                <th>Active</th>
-                <td>{% if user.active %}Yes{% else %}No{% endif %}</td>
+                <th>Actif ?</th>
+                <td>{% if user.active %}Oui{% else %}Non{% endif %}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('user_edit', { 'id': user.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <a href="{{ path('user_index') }}">Retour</a>
+    <a href="{{ path('user_edit', { 'id': user.id }) }}">Modifier</a>
 {% endblock %}

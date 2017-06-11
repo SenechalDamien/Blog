@@ -2,11 +2,11 @@
 
 {% block body %}
     <h1>Articles list</h1>
-    {% if is_granted('ROLE_AUTEUR') %}
-        <p>
-            <a href="{{ path('article_mesArticles') }}">Liste de mes Articles</a>
-        </p>
-    {% endif %}
+
+    {{ form_start(formRecherche) }}
+    {{ form_widget(formRecherche) }}
+    {{ form_end(formRecherche) }}
+
     <table>
         <thead>
             <tr>
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         {% for article in articles %}
-            {% if article.ecritPar.id != user.id %}
+            {% if article.ecritPar.id != app.user.id %}
                 <tr>
                     {#<td><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>#}
                     <td>{{ article.titre }}</td>
@@ -33,12 +33,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    {% if is_granted('ROLE_AUTEUR') %}
-        <ul>
-            <li>
-                <a href="{{ path('article_new') }}">Créer un nouvel article</a>
-            </li>
-        </ul>
-    {% endif %}
 {% endblock %}

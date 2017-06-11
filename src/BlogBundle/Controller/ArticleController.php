@@ -7,6 +7,7 @@ use BlogBundle\Entity\SignalementCom;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 //liste commentaires : que pour les admin (attention aux autres pages dans le meme genre)
 //comment faire un masque (ex : note commentaire que des int)
@@ -21,7 +22,7 @@ class ArticleController extends Controller
      * Lists all article entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -34,18 +35,29 @@ class ArticleController extends Controller
         else
             $articles = $em->getRepository('BlogBundle:Article')->findAll();
 		
-		$rolesUser = $user->getRoles()[0]->getRole();
+        $form = $this->createFormBuilder()
+            ->add('Recherche', TextType::class)
+            ->add('Valider', SubmitType::class, array('label' => 'Rechercher'))
+            ->getForm();
 
-		/*foreach ($user->getRoles() as $val){
-			$role = $val->getRole();
-		}*/
-		
-		//pourquoi tableau de roles ? Si qq1 est admin, il aura les 4 roles dans $user->getRoles()?
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $regex = $data['Recherche'];
+
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
+
+            return $this->render('article/index.html.twig', array(
+                'articles' => $articles,
+                'formRecherche' => $form->createView(),
+
+            ));
+        }
 
         return $this->render('article/index.html.twig', array(
             'articles' => $articles,
-			'user' => $user,
-			'rolesUser' => $rolesUser
+            'formRecherche' => $form->createView(),
         ));
     }
 	
@@ -165,24 +177,6 @@ class ArticleController extends Controller
         $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
-
-    public function rechercheAction($regex)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $articles = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
-        
-        $user = $this->getUser();
-                
-        $rolesUser = $user->getRoles()[0]->getRole();
-
-        return $this->render('article/index.html.twig', array(
-            'articles' => $articles,
-            'user' => $user,
-            'rolesUser' => $rolesUser
-        ));
-    }
-
 
     /**
      * Creates a form to delete a article entity.
