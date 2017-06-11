@@ -26,17 +26,13 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $articles = $em->getRepository('BlogBundle:Article')->findAll();
-		if($this->getUser() !== null){
-			$user = $this->getUser();
-		}
-		else{
-			$user = 0;
-		}
 		
-		$rolesUser = $user->getRoles();
+		$user = $this->getUser();
 		
+		$rolesUser = $user->getRoles()[0]->getRole();
+
 		/*foreach ($user->getRoles() as $val){
-			echo $val->getRole();
+			$role = $val->getRole();
 		}*/
 		
 		//pourquoi tableau de roles ? Si qq1 est admin, il aura les 4 roles dans $user->getRoles()?
