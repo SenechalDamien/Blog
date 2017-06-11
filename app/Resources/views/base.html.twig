@@ -7,7 +7,21 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+    <div id="navigation">
+        {% block navigation %}
+            <hr/>
+            {{ render(controller("BlogBundle:Default:navigation")) }}
+            <hr/>
+        {% endblock %}
+    </div>
+    <div id="body">
+        {% block body %}
+        {% endblock %}
+    </div>
+    <hr/>
+    <div id="pied_de_page">
+        <p>&copy; DF.</p>
+    </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
