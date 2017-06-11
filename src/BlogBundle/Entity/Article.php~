@@ -326,4 +326,44 @@ class Article
     public function __toString() {
         return $this->titre;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $marques_par_users;
+
+
+    /**
+     * Add marquesParUser
+     *
+     * @param \BlogBundle\Entity\User $marquesParUser
+     *
+     * @return Article
+     */
+    public function addMarquesParUser(\BlogBundle\Entity\User $marquesParUser)
+    {
+        $this->marques_par_users[] = $marquesParUser;
+        $marquesParUser->addArticlesMarque($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove marquesParUser
+     *
+     * @param \BlogBundle\Entity\User $marquesParUser
+     */
+    public function removeMarquesParUser(\BlogBundle\Entity\User $marquesParUser)
+    {
+        $this->marques_par_users->removeElement($marquesParUser);
+    }
+
+    /**
+     * Get marquesParUsers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMarquesParUsers()
+    {
+        return $this->marques_par_users;
+    }
 }

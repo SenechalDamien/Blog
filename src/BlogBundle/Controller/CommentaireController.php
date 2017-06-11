@@ -50,7 +50,7 @@ class CommentaireController extends Controller
             $em->persist($commentaire);
             $em->flush($commentaire);
 
-            return $this->redirectToRoute('commentaire_show', array('id' => $commentaire->getId()));
+            return $this->redirectToRoute('article_show', array('id' => $articleId));
         }
 
         return $this->render('commentaire/new.html.twig', array(

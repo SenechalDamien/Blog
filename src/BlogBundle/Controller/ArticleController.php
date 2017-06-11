@@ -26,17 +26,18 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $articles = $em->getRepository('BlogBundle:Article')->findAll();
-		if($this->getUser() !== null){
-			$user = $this->getUser();
-		}
-		else{
-			$user = 0;
-		}
 		
-		$rolesUser = $user->getRoles();
+		$user = $this->getUser();
 		
+        if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
+        else
+            $articles = $em->getRepository('BlogBundle:Article')->findAll();
+		
+		$rolesUser = $user->getRoles()[0]->getRole();
+
 		/*foreach ($user->getRoles() as $val){
-			echo $val->getRole();
+			$role = $val->getRole();
 		}*/
 		
 		//pourquoi tableau de roles ? Si qq1 est admin, il aura les 4 roles dans $user->getRoles()?
@@ -159,7 +160,9 @@ class ArticleController extends Controller
 
     public function addMarqueUserAction(Article $article)
     {
+        $em = $this->getDoctrine()->getManager();
         $article->addMarquesParUser($this->getUser());
+        $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
 
