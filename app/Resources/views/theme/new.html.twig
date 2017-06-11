@@ -4,13 +4,8 @@
     <h1>Theme creation</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_widget(form) }}
+    <input type="submit" value="Create" />
     {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('theme_index') }}">Retour</a>
-        </li>
-    </ul>
+    <a href="{{ path('theme_index') }}">Retour</a>
 {% endblock %}
