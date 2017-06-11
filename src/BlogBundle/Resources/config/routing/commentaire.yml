@@ -3,20 +3,20 @@
   #  defaults: { _controller: "BlogBundle:Commentaire:index" }
    # methods:  GET
 
-#commentaire_show:
- #   path:     /{id}/show
-  #  defaults: { _controller: "BlogBundle:Commentaire:show" }
-   # methods:  GET
+commentaire_show:
+    path:     /{id}/show
+    defaults: { _controller: "BlogBundle:Commentaire:show" }
+    methods:  GET
 
 commentaire_new:
     path:     /new/{articleId}
     defaults: { _controller: "BlogBundle:Commentaire:new" }
     methods:  [GET, POST]
 
-#commentaire_edit:
- #   path:     /{id}/edit
-  #  defaults: { _controller: "BlogBundle:Commentaire:edit" }
-   # methods:  [GET, POST]
+commentaire_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "BlogBundle:Commentaire:edit" }
+    methods:  [GET, POST]
 
 commentaire_delete:
     path:     /{id}/delete

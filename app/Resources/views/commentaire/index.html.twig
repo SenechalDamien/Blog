@@ -6,7 +6,7 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Article</th>
                 <th>Contenu</th>
                 <th>Note</th>
                 <th>Actions</th>
@@ -15,9 +15,10 @@
         <tbody>
         {% for commentaire in commentaires %}
             <tr>
-                <td><a href="{{ path('commentaire_show', { 'id': commentaire.id }) }}">{{ commentaire.id }}</a></td>
+                <td>{{ commentaire.articleAssocie.titre }}</td>
                 <td>{{ commentaire.contenu }}</td>
                 <td>{{ commentaire.note }}</td>
+
                 <td>
                     <ul>
                         <li>
@@ -33,9 +34,4 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('commentaire_new') }}">Create a new commentaire</a>
-        </li>
-    </ul>
 {% endblock %}

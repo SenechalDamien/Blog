@@ -28,6 +28,19 @@ class CommentaireController extends Controller
         ));
     }
 
+    public function index_mes_commentairesAction()
+    {
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $commentaires = $em->getRepository('BlogBundle:Commentaire')->findMesCommentaires($user);
+
+        return $this->render('commentaire/index.html.twig', array(
+            'commentaires' => $commentaires,
+        ));
+    }
+
     /**
      * Creates a new commentaire entity.
      *
