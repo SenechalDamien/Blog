@@ -2,7 +2,6 @@
 
 {% block body %}
     <h1>Article</h1>
-
     <table>
         <tbody>
             {#<tr>
@@ -44,7 +43,7 @@
 				<td>{{com.commentePar}}</td>
 				<td>{{com.contenu}}</td>
 				<td>{{com.note}}</td>
-                {% if article.ecritPar.id == user.id %}
+                {% if article.ecritPar.id == app.user.id %}
 				    <td>
 					    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
 				    </td>
@@ -56,7 +55,7 @@
 		{% endif %}
 	</table>
 	<br>
-    {% if article.ecritPar.id != user.id %}
+    {% if article.ecritPar.id != app.user.id %}
         <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
     {% endif %}
 	{% if i > 0 %}
@@ -66,12 +65,12 @@
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
         </li>
-        {% if article.ecritPar.id == user.id %}
+        {% if article.ecritPar.id == app.user.id %}
             <li>
                 <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>			
             </li>
         {% endif %}
-        {% if article.ecritPar.id != user.id %}
+        {% if article.ecritPar.id != app.user.id %}
             <li>
                 <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
             </li>
@@ -79,7 +78,7 @@
                 <a href="{{ path('signalementarticle_new', { 'articleId': article.id }) }}">Signaler cet article</a>
             </li>
         {% endif %}
-        {% if article.ecritPar.id == user.id %}
+        {% if article.ecritPar.id == app.user.id %}
             <li>
                 {{ form_start(delete_form) }}
                     <input type="submit" value="Suppimer">

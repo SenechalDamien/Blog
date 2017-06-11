@@ -1,16 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>User creation</h1>
+    <h1>Nouvel Utilisateur</h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+    {{ form_widget(form) }}
+    <input type="submit" value="Nouveau" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <a href="{{ path('user_index') }}">Retour</a>
 {% endblock %}

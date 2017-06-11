@@ -2,6 +2,11 @@
 
 {% block body %}
     <h1>Articles list</h1>
+
+    {{ form_start(formRecherche) }}
+    {{ form_widget(formRecherche) }}
+    {{ form_end(formRecherche) }}
+
     <table>
         <thead>
             <tr>
@@ -14,7 +19,7 @@
         </thead>
         <tbody>
         {% for article in articles %}
-            {% if article.ecritPar.id != user.id %}
+            {% if article.ecritPar.id != app.user.id %}
                 <tr>
                     {#<td><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>#}
                     <td>{{ article.titre }}</td>

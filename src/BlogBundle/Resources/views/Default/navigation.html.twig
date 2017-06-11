@@ -1,5 +1,6 @@
     <a href="{{ path('article_index') }}">Accueil</a>
 {% if is_granted('ROLE_ADMIN')%}
+    <a href="{{ path('user_index') }}">Utilisateurs</a>
 {% elseif is_granted('ROLE_CRITIQUE')%}
     <a href="{{ path('critique_editer_specialites') }}">Editer mes spécialités</a>
     <a href="{{ path('commentaire_show_mes_commentaires') }}">Voir mes critiques</a>
