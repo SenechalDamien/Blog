@@ -12,14 +12,12 @@
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
         </li>
-        <li>
-            {% if  is_granted('ROLE_ADMIN')%}
+        {% if  article.ecritPar.id == app.user.id or is_granted('ROLE_ADMIN')%}
             <li>
                 <a href="{{ path('article_suppression', { 'id': article.id }) }}">
                     Suppimer
                 </a>
             </li>
         {% endif %}
-    </li>
-</ul>
+    </ul>
 {% endblock %}
