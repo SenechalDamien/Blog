@@ -62,6 +62,7 @@ class CommentaireController extends Controller {
         foreach($article->getThemes() as $theme){
             if($this->getUser()->isSpecialite($theme))
                 $flag = true;
+        }
 
         if(!$flag || $this->getUser()->getArticle()->contains($article))
             throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
@@ -78,6 +79,7 @@ class CommentaireController extends Controller {
 
                 return $this->redirectToRoute('article_show', array('id' => $articleId));
             }
+            
         
 
         return $this->render('commentaire/new.html.twig', array(
