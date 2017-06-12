@@ -7,16 +7,40 @@
             <tr>
                 <th>Thème</th>
                 <th>Aimé</th>
-                {% if is_granted("ROLE_CRITIQUE") %}
-                    <th>Spécialité</th>
-                 {% endif %}
+
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for theme in themes %}
-                <tr><td>{{ theme.nom }}</td><td>{% if app.user.theme.getAime().contains(theme) %} Oui {% else  %} Non {% endif %}</td><td>app.user.</td></tr>
+                <tr><td>{{ theme.nom }}</td><td></td></tr>
         {% endfor %}
         </tbody>
     </table>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Mes thèmes suivis</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for theme in app.user.getTheme() %}
+                <tr>
+                    <td>{{ theme.nom }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if is_granted("ROLE_CRITIQUE") %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Mes spécialités</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}

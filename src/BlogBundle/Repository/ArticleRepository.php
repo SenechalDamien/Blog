@@ -24,6 +24,24 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 		return $articles;
 	}
 
+    public function findArticlesCritique($user) {
+        $currentDate =  new \DateTime('now');
+        $Date = date('c', strtotime('-30 days'));
+        $query = $this->getEntityManager()->createQuery("
+			SELECT a FROM BlogBundle:Article a
+			WHERE a not in (
+			SELECT am from BlogBundle:User u
+			JOIN u.articles_marques am where u = :user)
+			AND a.datePublication > :date
+			");
+        //JOIN a.marques_par_users u WITH u = :user");
+        $query->setParameter('user', $user);
+        $query->setParameter('date', $Date);
+        $articles = $query->execute();
+        //var_dump($articles);
+        return $articles;
+    }
+
 	public function findArticlesWithTitleOrAuthor($regex)
 	{
 		$query = $this->getEntityManager()->createQuery("

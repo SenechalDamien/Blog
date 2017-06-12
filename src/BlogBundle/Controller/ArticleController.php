@@ -22,9 +22,12 @@ class ArticleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-				
+
         if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
+        else if($this->isGranted('ROLE_CRITIQUE')){
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesCritique($this->getUser());
+        }
         else
             $articles = $em->getRepository('BlogBundle:Article')->findAll();
 		
@@ -36,17 +39,22 @@ class ArticleController extends Controller
         $form->handleRequest($request);
 
         $user = $this->getUser();
-        $cont = 0;
+            // possible bug
         $articlesAffiches = array();
         foreach($articles as $article){
+
+            $cont = 0;
             foreach($article->getThemes() as $theme){
-                if($user->getTheme()->contains($theme))
+                if($user->getTheme()->contains($theme)) {
                     $cont = 1;
+                    var_dump($theme);
+                }
             }
             if($cont == 1)
-                $articlesAffiches += $article;
+            array_push($articlesAffiches, $article);
         }
-
+        var_dump($articlesAffiches);
+        exit(0);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             $regex = $data['Recherche'];
