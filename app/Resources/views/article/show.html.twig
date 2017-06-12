@@ -60,9 +60,18 @@
     </table>
     <br>
 
-    {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE') %}
-
+    {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE')  %}
+        {% set flag = 0 %}
+        {% for theme in app.user.getTheme() %}
+            {% if article.getThemes().contains(theme.getAime()) %}
+            {% if theme.specialite == 1 %}
+                    {% set flag = 1 %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if flag == 1 %}
         <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
+        {% endif %}
     {% endif %}
     {% if i > 0 %}
         <h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
