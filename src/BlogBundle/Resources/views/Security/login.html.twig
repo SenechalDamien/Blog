@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<h1>login</h1>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Ex-Père TIZ{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <h1>Bienvenu sur Ex-Père TIZ !</h1>
+        <h1>login</h1>
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        <form action="{{ path('login_check') }}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
-    <button type="submit">login</button>
-</form>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+            <button type="submit">login</button>
+        </form>
+    </body>
+</html>
