@@ -24,7 +24,7 @@ security:
             security: false
 
         main:
-            pattern: ^/(homepage|user|theme|article|commentaire|signalementarticle|signalementcom|mesSignalements|login_check|logout)
+            pattern: ^/(homepage|user|theme|article|commentaire|signalementarticle|signalementcom|signalement|login_check|logout)
             form_login: 
                 login_path: /login
                 check_path: /login_check
