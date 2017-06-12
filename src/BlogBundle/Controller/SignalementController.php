@@ -14,37 +14,37 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  * Signalement controller.
  *
  */
-class SignalementController extends Controller
-{
-	public function mesSignalementsAction()
-    {
+class SignalementController extends Controller {
+
+    public function mesSignalementsAction() {
         $em = $this->getDoctrine()->getManager();
 
-		$signalementsArt = $em->getRepository('BlogBundle:SignalementArticle')->findBySignalePar($this->getUser()->getId());
-		$signalementsCom = $em->getRepository('BlogBundle:SignalementCom')->findBySignalePar($this->getUser()->getId());
-		
-		//$deleteFormSignArt = $this->createDeleteForm($signalementArticle);
-		//$deleteFormSignCom = $this->createDeleteForm($signalementCom);
-		
+        if ($this->isGranted("ROLE_ADMIN")) {
+            $signalementsArt = $em->getRepository('BlogBundle:SignalementArticle')->findAll();
+            $signalementsCom = $em->getRepository('BlogBundle:SignalementCom')->findAll();
+        } else {
+            $signalementsArt = $em->getRepository('BlogBundle:SignalementArticle')->findBySignalePar($this->getUser()->getId());
+            $signalementsCom = $em->getRepository('BlogBundle:SignalementCom')->findBySignalePar($this->getUser()->getId());
+        }
+
         return $this->render('BlogBundle:Signalements:mesSignalements.html.twig', array(
-            'signalementsArt' => $signalementsArt,
-			'signalementsCom' => $signalementsCom,
+                    'signalementsArt' => $signalementsArt,
+                    'signalementsCom' => $signalementsCom,
         ));
     }
-	
-	public function deleteSignArtAction($id)
-    {
-		$em = $this->getDoctrine()->getManager();
+
+    public function deleteSignArtAction($id) {
+        $em = $this->getDoctrine()->getManager();
         $em->remove($em->getRepository('BlogBundle:SignalementArticle')->find($id));
         $em->flush();
         return $this->redirectToRoute('mesSignalements');
-	}
-	
-	public function deleteSignComAction($id)
-    {
-		$em = $this->getDoctrine()->getManager();
+    }
+
+    public function deleteSignComAction($id) {
+        $em = $this->getDoctrine()->getManager();
         $em->remove($em->getRepository('BlogBundle:SignalementCom')->find($id));
         $em->flush();
         return $this->redirectToRoute('mesSignalements');
-	}
+    }
+
 }

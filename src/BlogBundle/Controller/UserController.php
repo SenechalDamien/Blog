@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\User;
+use BlogBundle\Entity\UserThemes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -114,6 +115,48 @@ class UserController extends Controller
         return $this->redirectToRoute('user_index');
     }
 
+    public function addUserThemeAction($id)
+    {
+        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
+        if($userThemes->count() != 0)
+            return $this->redirectToRoute('profil');
+
+        $em = $this->getDoctrine()->getManager();
+        $theme = $em->getRepository('BlogBundle:Theme')->find($id);//findOneBy(array('nom' => $id));
+
+        $userTheme = new UserThemes;
+        $userTheme->setAimePar($this->getUser());
+        $userTheme->setAime($theme);
+        $userTheme->setSpecialite(0);
+
+        $em->persist($userTheme);
+        $em->flush();
+        return $this->redirectToRoute('profil');
+    }
+
+    public function addSpecialiteAction($id)
+    {
+        $user = $this->getUser();
+        foreach($user->getTheme() as $theme){
+            if($theme->getAime() == $theme)
+                $theme->setSpecialite(1);
+        }
+        return $this->redirectToRoute('profil');
+    }
+
+    public function removeUserTheme($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
+        if($userThemes->count() == 0)
+            return $this->redirectToRoute('profil');
+        else {
+            foreach($userThemes as $userTheme) {
+                $em->remove($userTheme)
+            }
+        }
+        return $this->redirectToRoute('profil');
+    }
 
     /**
      * Creates a form to delete a user entity.
