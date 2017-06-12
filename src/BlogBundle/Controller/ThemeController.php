@@ -10,20 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
  * Theme controller.
  *
  */
-class ThemeController extends Controller
-{
+class ThemeController extends Controller {
+
     /**
      * Lists all theme entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $themes = $em->getRepository('BlogBundle:Theme')->findAll();
 
         return $this->render('theme/index.html.twig', array(
-            'themes' => $themes,
+                    'themes' => $themes,
         ));
     }
 
@@ -31,8 +30,7 @@ class ThemeController extends Controller
      * Creates a new theme entity.
      *
      */
-    public function newAction(Request $request)
-    {
+    public function newAction(Request $request) {
         $theme = new Theme();
         $form = $this->createForm('BlogBundle\Form\ThemeType', $theme);
         $form->handleRequest($request);
@@ -42,12 +40,12 @@ class ThemeController extends Controller
             $em->persist($theme);
             $em->flush();
 
-            return $this->redirectToRoute('theme_show', array('id' => $theme->getId()));
+            return $this->redirectToRoute('theme_index', array('id' => $theme->getId()));
         }
 
         return $this->render('theme/new.html.twig', array(
-            'theme' => $theme,
-            'form' => $form->createView(),
+                    'theme' => $theme,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -55,22 +53,21 @@ class ThemeController extends Controller
      * Finds and displays a theme entity.
      *
      */
-    public function showAction(Theme $theme)
-    {
-        $deleteForm = $this->createDeleteForm($theme);
+    /* public function showAction(Theme $theme)
+      {
+      $deleteForm = $this->createDeleteForm($theme);
 
-        return $this->render('theme/show.html.twig', array(
-            'theme' => $theme,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
+      return $this->render('theme/show.html.twig', array(
+      'theme' => $theme,
+      'delete_form' => $deleteForm->createView(),
+      ));
+      } */
 
     /**
      * Displays a form to edit an existing theme entity.
      *
      */
-    public function editAction(Request $request, Theme $theme)
-    {
+    public function editAction(Request $request, Theme $theme) {
         $deleteForm = $this->createDeleteForm($theme);
         $editForm = $this->createForm('BlogBundle\Form\ThemeType', $theme);
         $editForm->handleRequest($request);
@@ -82,9 +79,9 @@ class ThemeController extends Controller
         }
 
         return $this->render('theme/edit.html.twig', array(
-            'theme' => $theme,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'theme' => $theme,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -92,8 +89,7 @@ class ThemeController extends Controller
      * Deletes a theme entity.
      *
      */
-    public function deleteAction(Request $request, Theme $theme)
-    {
+    public function deleteAction(Request $request, Theme $theme) {
         $form = $this->createDeleteForm($theme);
         $form->handleRequest($request);
 
@@ -106,6 +102,13 @@ class ThemeController extends Controller
         return $this->redirectToRoute('theme_index');
     }
 
+    public function deletelinkAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($em->getRepository('BlogBundle:Theme')->find($id));
+        $em->flush();
+        return $this->redirectToRoute('theme_index');
+    }
+
     /**
      * Creates a form to delete a theme entity.
      *
@@ -113,12 +116,12 @@ class ThemeController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Theme $theme)
-    {
+    private function createDeleteForm(Theme $theme) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('theme_delete', array('id' => $theme->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
+                        ->setAction($this->generateUrl('theme_delete', array('id' => $theme->getId())))
+                        ->setMethod('DELETE')
+                        ->getForm()
         ;
     }
+
 }

@@ -31,3 +31,6 @@ critique_editer_specialites:
     path: /editSpecialite
     defaults: { _controller: "BlogBundle:User:editerSpecialite" }
 
+profil:
+    path:     /profil
+    defaults: { _controller: "BlogBundle:User:profil" }

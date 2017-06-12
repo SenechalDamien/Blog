@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <p>
+        <a href="{{ path('theme_new') }}">Nouveau Theme</a>
+    <p>
     <h1>Themes list</h1>
-
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
-                <th>Active</th>
-                <th>Actions</th>
+                <th>Actif</th>
+                <th>Articles</th>
+                <th>Suppression</th>
             </tr>
         </thead>
         <tbody>
-        {% for theme in themes %}
-            <tr>
-                <td><a href="{{ path('theme_show', { 'id': theme.id }) }}">{{ theme.id }}</a></td>
-                <td>{{ theme.nom }}</td>
-                <td>{% if theme.active %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('theme_show', { 'id': theme.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('theme_edit', { 'id': theme.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for theme in themes %}
+                <tr>
+                    <td>{{ theme.nom }}</td>
+                    <td>{% if theme.active %}Oui{% else %}Non{% endif %}</td>
+                    <td>
+                        <ul>
+                            {% for article in theme.articles %}
+                                <li>
+                                    {{ article.titre }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+{% if theme.articles is empty %}
+                            <a href="{{ path('theme_delete_link',{ 'id': theme.id }) }}">Supprimmer</a> 
+                        {%endif%}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('theme_new') }}">Create a new theme</a>
-        </li>
-    </ul>
 {% endblock %}

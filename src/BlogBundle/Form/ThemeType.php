@@ -13,7 +13,8 @@ class ThemeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('active')->add('articles');
+        $builder->add('nom',null, array('label' => 'Titre'))
+                ->add('active',null, array('label' => 'Actif'));//->add('articles')
     }
     
     /**

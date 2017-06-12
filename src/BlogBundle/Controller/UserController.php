@@ -4,7 +4,9 @@ namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
  * User controller.
@@ -65,6 +67,12 @@ class UserController extends Controller
         ));
     }
 
+    public function profilAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $themes = $em->getRepository('BlogBundle:Theme')->findAll();
+        return $this->render('user/profil.html.twig', array("themes" => $themes));
+    }
     /**
      * Displays a form to edit an existing user entity.
      *
@@ -120,6 +128,8 @@ class UserController extends Controller
             ->setAction($this->generateUrl('user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
             ->getForm()
-        ;
+            ;
     }
+
+
 }

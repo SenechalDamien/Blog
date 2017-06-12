@@ -22,11 +22,7 @@ class ArticleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $articles = $em->getRepository('BlogBundle:Article')->findAll();
-		
-		$user = $this->getUser();
-		
+				
         if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
         else
@@ -39,21 +35,28 @@ class ArticleController extends Controller
 
         $form->handleRequest($request);
 
+        $user = $this->getUser();
+        $cont = 0;
+        $articlesAffiches = array();
+        foreach($articles as $article){
+            foreach($article->getThemes() as $theme){
+                if($user->getTheme()->contains($theme))
+                    $cont = 1;
+            }
+            if($cont == 1)
+                $articlesAffiches += $article;
+        }
+
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             $regex = $data['Recherche'];
 
-            $articles = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
-
-            return $this->render('article/index.html.twig', array(
-                'articles' => $articles,
-                'formRecherche' => $form->createView(),
-
-            ));
+            $articlesAffiches = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
         }
 
+
         return $this->render('article/index.html.twig', array(
-            'articles' => $articles,
+            'articles' => $articlesAffiches,
             'formRecherche' => $form->createView(),
         ));
     }
