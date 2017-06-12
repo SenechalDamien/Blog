@@ -28,7 +28,8 @@ class ArticleController extends Controller {
 
         $form->handleRequest($request);
         
-        
+        $em = $this->getDoctrine()->getManager();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $regex = $data['Recherche'];
