@@ -22,11 +22,11 @@ class ArticleController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER'))
-            $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
-        else if($this->isGranted('ROLE_CRITIQUE')){
+        if($this->isGranted('ROLE_CRITIQUE')){
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesCritique($this->getUser());
+        }
+        else if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
         }
         else
             $articles = $em->getRepository('BlogBundle:Article')->findAll();
