@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Articles list</h1>
+    <h1>liste des Articles</h1>
 
     {{ form_start(formRecherche) }}
     {{ form_widget(formRecherche) }}
@@ -9,24 +9,22 @@
     <table class="table">
         <thead>
             <tr>
-                {#<th>Id</th>#}
-                <th>Titre</th>
-                <th>Datemodif</th>
-                <th>Datepublication</th>
-				<th>Nombre de commentaires</th>
-                <th>Actions</th>
+                <th class="text-center">Titre</th>
+                <th class="text-center">Datemodif</th>
+                <th class="text-center">Datepublication</th>
+				<th class="text-center">Nombre de commentaires</th>
+                <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for article in articles %}
             {% if article.ecritPar.id != app.user.id %}
                 <tr>
-                    {#<td><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>#}
-                    <td>{{ article.titre }}</td>
-                    <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
-                    <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
-                    <td>{{article.comArticle|length}}</td>
-					<td>
+                    <td class="text-center">{{ article.titre }}</td>
+                    <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
+                    <td class="text-center">{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
+                    <td class="text-center">{{article.comArticle|length}}</td>
+					<td class="text-center">
                         <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>
                     </td>
                 </tr>
