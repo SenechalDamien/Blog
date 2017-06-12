@@ -435,4 +435,13 @@ class User implements AdvancedUserInterface, \Serializable {
     {
         return $this->articles_marques;
     }
+
+    public function isSpecialite(Theme $theme)
+    {
+        foreach($this->theme as $themeUser) {
+            if($themeUser->getAime() == $theme && $themeUser->getSpecialite() == 1)
+                return true;
+        }
+        return false;
+    }
 }

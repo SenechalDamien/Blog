@@ -30,11 +30,14 @@ class CommentaireController extends Controller
 
     public function index_mes_commentairesAction()
     {
+        $this->denyAccessUnlessGranted('ROLE_CRITIQUE', null, 'YOU SHALL NOT PASS');
+
         $user = $this->getUser();
 
         $em = $this->getDoctrine()->getManager();
 
         $commentaires = $em->getRepository('BlogBundle:Commentaire')->findMesCommentaires($user);
+        
 
         return $this->render('commentaire/index.html.twig', array(
             'commentaires' => $commentaires,
@@ -47,24 +50,36 @@ class CommentaireController extends Controller
      */
     public function newAction(Request $request, $articleId)
     {
-        $commentaire = new Commentaire();
-        $form = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
-        $form->handleRequest($request);
-		
-		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Article');
-		$article = $repository->findOneById($articleId);
-		
-		$user = $this->getUser();
+        $this->denyAccessUnlessGranted('ROLE_CRITIQUE', null, 'YOU SHALL NOT PASS');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-			$commentaire->setCommentePar($user)
-                    ->setArticleAssocie($article);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($commentaire);
-            $em->flush($commentaire);
+            $commentaire = new Commentaire();
+            $form = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
+            $form->handleRequest($request);
+    		
+    		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Article');
+    		$article = $repository->findOneById($articleId);
 
-            return $this->redirectToRoute('article_show', array('id' => $articleId));
-        }
+            $flag = false;
+            foreach($article->getThemes() as $theme){
+                if($this->getUser()->isSpecialite($theme))
+                    $flag = true;
+            }
+            if(!$flag || $this->getUser()->getArticle()->contains($article))
+                return $this->redirectToRoute('article_show', array('id' => $articleId));
+
+
+    		$user = $this->getUser();
+
+            if ($form->isSubmitted() && $form->isValid()) {
+    			$commentaire->setCommentePar($user)
+                        ->setArticleAssocie($article);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($commentaire);
+                $em->flush($commentaire);
+
+                return $this->redirectToRoute('article_show', array('id' => $articleId));
+            }
+        
 
         return $this->render('commentaire/new.html.twig', array(
             'commentaire' => $commentaire,
@@ -92,6 +107,9 @@ class CommentaireController extends Controller
      */
     public function editAction(Request $request, Commentaire $commentaire)
     {
+        if (!($this->isGranted('ROLE_CRITIQUE') && $this->getUser()->getCom()->contains($commentaire))) {
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+        }
 
         $deleteForm = $this->createDeleteForm($commentaire);
         $editForm = $this->createForm('BlogBundle\Form\CommentaireType', $commentaire);
@@ -116,6 +134,9 @@ class CommentaireController extends Controller
      */
     public function deleteAction(Request $request, Commentaire $commentaire)
     {
+        if (!($this->isGranted('ROLE_CRITIQUE') && $this->getUser()->getCom()->contains($commentaire) || $this->isGranted('ROLE_ADMIN'))) {
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+        }
         $form = $this->createDeleteForm($commentaire);
         $form->handleRequest($request);
 

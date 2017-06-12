@@ -117,61 +117,70 @@ class UserController extends Controller
 
     public function addUserThemeAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
-        if(count($userThemes) != 0)
-            return $this->redirectToRoute('profil');
+        if ($this->isGranted('ROLE_LECTEUR')) {
+            $em = $this->getDoctrine()->getManager();
+            $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
+            if(count($userThemes) != 0)
+                return $this->redirectToRoute('profil');
 
-        $em = $this->getDoctrine()->getManager();
-        $theme = $em->getRepository('BlogBundle:Theme')->find($id);//findOneBy(array('nom' => $id));
+            $em = $this->getDoctrine()->getManager();
+            $theme = $em->getRepository('BlogBundle:Theme')->find($id);//findOneBy(array('nom' => $id));
 
-        $userTheme = new UserThemes;
-        $userTheme->setAimePar($this->getUser());
-        $userTheme->setAime($theme);
-        $userTheme->setSpecialite(0);
+            $userTheme = new UserThemes;
+            $userTheme->setAimePar($this->getUser());
+            $userTheme->setAime($theme);
+            $userTheme->setSpecialite(0);
 
-        $em->persist($userTheme);
-        $em->flush();
+            $em->persist($userTheme);
+            $em->flush();
+        }
         return $this->redirectToRoute('profil');
     }
 
     public function addSpecialiteAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        foreach($user->getTheme() as $theme){
-            if($theme->getAime()->getId() == $id)
-                $theme->setSpecialite(1);
+        if ($this->isGranted('ROLE_CRITIQUE')) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            foreach($user->getTheme() as $theme){
+                if($theme->getAime()->getId() == $id)
+                    $theme->setSpecialite(1);
+            }
+            $em->flush();
         }
-        $em->flush();
         return $this->redirectToRoute('profil');
     }
 
     public function removeSpecialiteAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        foreach($user->getTheme() as $theme){
-            if($theme->getAime()->getId() == $id)
-                $theme->setSpecialite(0);
+        if ($this->isGranted('ROLE_CRITIQUE')) {
+
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            foreach($user->getTheme() as $theme){
+                if($theme->getAime()->getId() == $id)
+                    $theme->setSpecialite(0);
+            }
+            $em->flush();
         }
-        //$em->persist($theme);
-        $em->flush();
         return $this->redirectToRoute('profil');
     }
 
     public function removeUserThemeAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
-        if(count($userThemes) == 0)
-            return $this->redirectToRoute('profil');
-        else {
-            foreach($userThemes as $userTheme) {
-                $this->getUser()->removeTheme($userTheme->getAime());
-                $em->remove($userTheme);
+        if ($this->isGranted('ROLE_LECTEUR')) {
+
+            $em = $this->getDoctrine()->getManager();
+            $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
+            if(count($userThemes) == 0)
+                return $this->redirectToRoute('profil');
+            else {
+                foreach($userThemes as $userTheme) {
+                    $this->getUser()->removeTheme($userTheme->getAime());
+                    $em->remove($userTheme);
+                }
+                $em->flush();
             }
-            $em->flush();
         }
         return $this->redirectToRoute('profil');
     }

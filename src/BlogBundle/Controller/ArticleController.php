@@ -35,6 +35,10 @@ class ArticleController extends Controller {
             $regex = $data['Recherche'];
 
             $articlesAffiches = $em->getRepository('BlogBundle:Article')->findArticlesWithTitleOrAuthor($regex);
+            return $this->render('article/index.html.twig', array(
+                    'articles' => $articlesAffiches,
+                    'formRecherche' => $form->createView(),
+            ));
         }
         
         
@@ -78,9 +82,11 @@ class ArticleController extends Controller {
     }
 
     public function mesArticlesAction() {
-        $em = $this->getDoctrine()->getManager();
+        if ($this->isGranted('ROLE_AUTEUR')) {
+            $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('BlogBundle:Article')->findByEcritPar($this->getUser()->getId());
+            $articles = $em->getRepository('BlogBundle:Article')->findByEcritPar($this->getUser()->getId());
+        }
 
         return $this->render('BlogBundle:Article:mesArticles.html.twig', array(// article/index.html.twig
                     'articles' => $articles,
@@ -92,27 +98,28 @@ class ArticleController extends Controller {
      *
      */
     public function newAction(Request $request) {
-        $article = new Article();
-        $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
-        //$form->add('submit', SubmitType::class, array('label' => 'Valider'));
-        $form->handleRequest($request);
+        if ($this->isGranted('ROLE_AUTEUR')){
+            $article = new Article();
+            $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
+            //$form->add('submit', SubmitType::class, array('label' => 'Valider'));
+            $form->handleRequest($request);
 
-        //$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
-        //$user = $repository->findOneById(1);
-        $user = $this->getUser();
+            //$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:User');
+            //$user = $repository->findOneById(1);
+            $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $article->setEcritPar($user)
-                    ->setDatePublication(new \Datetime())
-                    ->setDateModif(new \Datetime())
-                    ->setActive(true);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush($article);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $article->setEcritPar($user)
+                        ->setDatePublication(new \Datetime())
+                        ->setDateModif(new \Datetime())
+                        ->setActive(true);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush($article);
 
-            return $this->redirectToRoute('article_show', array('id' => $article->getId()));
+                return $this->redirectToRoute('article_show', array('id' => $article->getId()));
+            }
         }
-
         return $this->render('article/new.html.twig', array(//   BlogBundle:Article:new.html.twig
                     'article' => $article,
                     'form' => $form->createView(),
@@ -147,17 +154,19 @@ class ArticleController extends Controller {
      *
      */
     public function editAction(Request $request, Article $article) {
-        $deleteForm = $this->createDeleteForm($article);
-        $editForm = $this->createForm('BlogBundle\Form\ArticleType', $article);
-        $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $article->setDateModif(new \Datetime());
-            $this->getDoctrine()->getManager()->flush();
+        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+            $deleteForm = $this->createDeleteForm($article);
+            $editForm = $this->createForm('BlogBundle\Form\ArticleType', $article);
+            $editForm->handleRequest($request);
 
-            return $this->redirectToRoute('article_edit', array('id' => $article->getId()));
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $article->setDateModif(new \Datetime());
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('article_edit', array('id' => $article->getId()));
+            }
         }
-
         return $this->render('article/edit.html.twig', array(
                     'article' => $article,
                     'edit_form' => $editForm->createView(),
@@ -170,16 +179,18 @@ class ArticleController extends Controller {
      *
      */
     public function deleteAction(Request $request, Article $article) {
-        $form = $this->createDeleteForm($article);
-        $form->handleRequest($request);
+        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createDeleteForm($article);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($article);
-            $em->flush($article);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($article);
+                $em->flush($article);
+            }
+
+            return $this->redirectToRoute('article_index');
         }
-
-        return $this->redirectToRoute('article_index');
     }
 
     public function addMarqueUserAction(Article $article) {
@@ -207,11 +218,13 @@ class ArticleController extends Controller {
     }
     
     public function deleteArticleAction($id) {
-        $em = $this->getDoctrine()->getManager();
-        $article=$em->getRepository('BlogBundle:Article')->find($id);
-        $article->setActive(0);
-        $em->flush();
-        return $this->redirectToRoute('article_index');
+        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+            $em = $this->getDoctrine()->getManager();
+            $article=$em->getRepository('BlogBundle:Article')->find($id);
+            $article->setActive(0);
+            $em->flush();
+            return $this->redirectToRoute('article_index');
+        }
     }
 
 }
