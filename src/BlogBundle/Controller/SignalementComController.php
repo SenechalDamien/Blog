@@ -32,7 +32,7 @@ class SignalementComController extends Controller
      * Creates a new signalementCom entity.
      *
      */
-    public function newAction(Request $request, Int $commentaireId)
+    public function newAction(Request $request, $commentaireId)
     {
         $signalementCom = new Signalementcom();
         $form = $this->createForm('BlogBundle\Form\SignalementComType', $signalementCom);

@@ -32,7 +32,7 @@ class SignalementArticleController extends Controller
      * Creates a new signalementArticle entity.
      *
      */
-    public function newAction(Request $request, Int $articleId)
+    public function newAction(Request $request, $articleId)
     {
         $signalementArticle = new Signalementarticle();
         $form = $this->createForm('BlogBundle\Form\SignalementArticleType', $signalementArticle);
