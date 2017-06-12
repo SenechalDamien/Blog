@@ -14,15 +14,21 @@
         {% for theme in themes %}
                 <tr>
                     <td>{{ theme.nom }}</td><td>
+                        {% set flag = 0 %}
             {% for usertheme in app.user.getTheme() %}
-                            {% if usertheme.getAime() == theme %}
-                                <a class="btn btn-error" href="{{ path('profil_aime_pas',{'id' : theme.id}) }}">Ne plus aimer ce thème</a>
-                            {% else %}
 
-                                <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
-                            {% endif %}
+                {% if usertheme.getAime() == theme and flag == 0%}
+                    {% set flag = 1 %}
+                {% endif %}
+
             {% endfor %}
+                        {% if flag == 1%}
+                            <a class="btn btn-error" href="{{ path('profil_aime_pas',{'id' : theme.id}) }}">Ne plus aimer ce thème</a>
+                        {% else %}
+                            <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
+                        {% endif %}
                     </td>
+            {% if is_granted("ROLE_CRITIQUE") %}
                     <td>
                         {% for usertheme in app.user.getTheme() %}
                         {% if usertheme.getAime() == theme %}
@@ -35,6 +41,7 @@
                         {% endfor %}
 
                     </td>
+                {% endif %}
                 </tr>
         {% endfor %}
         </tbody>
