@@ -36,6 +36,6 @@ article_add_marque_user:
 
 article_suppression:
     path:     /delete/{id}
-    defaults: { _controller: "BlogBundle:Signalement:deleteArticle" }
+    defaults: { _controller: "BlogBundle:Article:deleteArticle" }
     methods:  GET
 
