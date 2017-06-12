@@ -12,11 +12,6 @@ class Role implements RoleInterface
      */
     private $id;
 
-    /**
-     * @var string
-     */
-    private $nom;
-
 
     /**
      * Get id
@@ -26,30 +21,6 @@ class Role implements RoleInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     *
-     * @return Role
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string
-     */
-    public function getNom()
-    {
-        return $this->nom;
     }
 
     /**
@@ -129,6 +100,6 @@ class Role implements RoleInterface
     }
     
     public function __toString() {
-        return $this->nom;
+        return $this->role;
     }
 }

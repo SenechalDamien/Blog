@@ -265,7 +265,9 @@ class User implements UserInterface, \Serializable {
      * @return \BlogBundle\Entity\Role
      */
     public function getRoles() {
+        if($this->roles!=null){
         return $this->roles->toArray();
+        }
     }
 
     /**

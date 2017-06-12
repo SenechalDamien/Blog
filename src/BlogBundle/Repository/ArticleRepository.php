@@ -16,7 +16,8 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			SELECT a FROM BlogBundle:Article a
 			WHERE a not in (
 			SELECT am from BlogBundle:User u
-			JOIN u.articles_marques am where u = :user)");
+			JOIN u.articles_marques am where u = :user)
+			ORDER BY a.datePublication");
 			//JOIN a.marques_par_users u WITH u = :user");
 		$query->setParameter('user', $user);
 		$articles = $query->execute();
@@ -33,6 +34,7 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			SELECT am from BlogBundle:User u
 			JOIN u.articles_marques am where u = :user)
 			AND a.datePublication > :date
+			ORDER BY a.datePublication
 			");
         //JOIN a.marques_par_users u WITH u = :user");
         $query->setParameter('user', $user);
@@ -48,8 +50,10 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 			SELECT a FROM BlogBundle:Article a
 			JOIN a.ecritPar u
 			WHERE a.titre like :regex 
-			OR u.username like :regex");
+			OR u.username like :regexAutheur");
 		$query->setParameter('regex', '%'.$regex.'%');
+				$query->setParameter('regexAutheur', $regex);
+
 		$articles = $query->execute();
 		//var_dump($articles);
 		return $articles;
