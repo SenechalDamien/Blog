@@ -55,7 +55,7 @@
             {% for signalement in signalementsCom %}
                 <tr>     
                     <td class="text-center">
-                        <a href="{{ path('commentaire_show', { 'id': signalement.signale.id }) }}">
+                        <a href="{{ path('commentaire_edit', { 'id': signalement.signale.id }) }}">
                             {{ signalement.signale.contenu }}
                         </a>
                     </td>

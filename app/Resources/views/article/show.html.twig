@@ -33,6 +33,12 @@
         </tbody>
     </table>
 
+    {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE') %}
+
+        <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
+    {% endif %}
+
+
     <h3>Commentaires</h3>
     <table class="table">
         <tr>
@@ -58,12 +64,8 @@
             {% set moyenne = moyenne/i %}
         {% endif %}
     </table>
+
     <br>
-
-    {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE') %}
-
-        <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
-    {% endif %}
     {% if i > 0 %}
         <h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
     {% endif %}
