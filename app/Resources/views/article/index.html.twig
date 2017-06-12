@@ -6,7 +6,6 @@
     {{ form_start(formRecherche) }}
     {{ form_widget(formRecherche) }}
     {{ form_end(formRecherche) }}
-
     <table class="table">
         <thead>
             <tr>
@@ -14,6 +13,7 @@
                 <th>Titre</th>
                 <th>Datemodif</th>
                 <th>Datepublication</th>
+				<th>Nombre de commentaires</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,7 +25,8 @@
                     <td>{{ article.titre }}</td>
                     <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
                     <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
-                    <td>
+                    <td>{{article.comArticle|length}}</td>
+					<td>
                         <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>
                     </td>
                 </tr>

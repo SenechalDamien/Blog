@@ -2,6 +2,7 @@
 
 namespace BlogBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,7 @@ class SignalementComType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('raison'); //->add('active')->add('date')->add('signalePar')->add('signale')
+        $builder->add('raison', TextareaType::class); //->add('active')->add('date')->add('signalePar')->add('signale')
     }
     
     /**
