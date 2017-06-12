@@ -120,15 +120,15 @@ class ArticleController extends Controller
 		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaire');
 		$listecom = $repository->findByArticleAssocie($article->getId());
 		
-		$signcom = new SignalementCom();
-		$signalercom = $this->createForm('BlogBundle\Form\SignalementComType', $signcom);
+		//$signcom = new SignalementCom();
+		//$signalercom = $this->createForm('BlogBundle\Form\SignalementComType', $signcom);
 		
         $deleteForm = $this->createDeleteForm($article);
 
         return $this->render('article/show.html.twig', array(
             'article' => $article,
 			'listecom' => $listecom,
-			'signalercom' => $signalercom,
+			//'signalercom' => $signalercom,
             'delete_form' => $deleteForm->createView(),
             'user' => $this->getUser(),
         ));
