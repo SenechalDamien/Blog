@@ -42,19 +42,17 @@ class ArticleController extends Controller
             // possible bug
         $articlesAffiches = array();
         foreach($articles as $article){
-
             $cont = 0;
             foreach($article->getThemes() as $theme){
-                if($user->getTheme()->contains($theme)) {
-                    $cont = 1;
-                    var_dump($theme);
+                foreach($user->getTheme() as $userTheme){
+                    if($userTheme->getAime() == $theme) {
+                        $cont = 1;
+                    }
                 }
             }
             if($cont == 1)
             array_push($articlesAffiches, $article);
         }
-        var_dump($articlesAffiches);
-        exit(0);
         if($form->isSubmitted() && $form->isValid()){
             $data = $form->getData();
             $regex = $data['Recherche'];
