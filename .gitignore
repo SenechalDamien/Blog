@@ -13,5 +13,6 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
+!/vendor/twbs
 /web/bundles/
 /app/AppKernel.php
