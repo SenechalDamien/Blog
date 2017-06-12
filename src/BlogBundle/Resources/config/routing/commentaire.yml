@@ -26,3 +26,8 @@ commentaire_delete:
 commentaire_show_mes_commentaires:
     path:     /mes_commentaires
     defaults: { _controller: "BlogBundle:Commentaire:index_mes_commentaires" }
+    
+commentaire_suppression:
+    path:     /delete/{id}
+    defaults: { _controller: "BlogBundle:Commentaire:deleteCommentaire" }
+    methods:  GET

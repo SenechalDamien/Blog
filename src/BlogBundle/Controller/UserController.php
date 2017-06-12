@@ -200,6 +200,14 @@ class UserController extends Controller
             ->getForm()
             ;
     }
+    
+    public function deleteUserAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $user=$em->getRepository('BlogBundle:User')->find($id);
+        $user->setActive(0);
+        $em->flush();
+        return $this->redirectToRoute('user_index');
+    }
 
 
 }
