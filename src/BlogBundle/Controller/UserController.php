@@ -117,8 +117,9 @@ class UserController extends Controller
 
     public function addUserThemeAction($id)
     {
-        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
-        if($userThemes->count() != 0)
+        $em = $this->getDoctrine()->getManager();
+        $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
+        if(count($userThemes) != 0)
             return $this->redirectToRoute('profil');
 
         $em = $this->getDoctrine()->getManager();
@@ -136,34 +137,41 @@ class UserController extends Controller
 
     public function addSpecialiteAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         foreach($user->getTheme() as $theme){
-            if($theme->getAime() == $theme)
+            if($theme->getAime()->getId() == $id)
                 $theme->setSpecialite(1);
         }
+        $em->flush();
         return $this->redirectToRoute('profil');
     }
 
     public function removeSpecialiteAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         foreach($user->getTheme() as $theme){
-            if($theme->getAime() == $theme)
+            if($theme->getAime()->getId() == $id)
                 $theme->setSpecialite(0);
         }
+        //$em->persist($theme);
+        $em->flush();
         return $this->redirectToRoute('profil');
     }
 
     public function removeUserThemeAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
-        if($userThemes->count() == 0)
+        $userThemes = $em->getRepository('BlogBundle:UserThemes')->findBy(array('aime' => $id, 'aimePar' => $this->getUser()->getId()));
+        if(count($userThemes) == 0)
             return $this->redirectToRoute('profil');
         else {
             foreach($userThemes as $userTheme) {
+                $this->getUser()->removeTheme($userTheme->getAime());
                 $em->remove($userTheme);
             }
+            $em->flush();
         }
         return $this->redirectToRoute('profil');
     }
