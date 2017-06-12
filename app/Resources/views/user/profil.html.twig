@@ -14,27 +14,46 @@
         {% for theme in themes %}
                 <tr>
                     <td>{{ theme.nom }}</td><td>
+                        {% set flag = 0 %}
             {% for usertheme in app.user.getTheme() %}
-                            {% if usertheme.getAime() == theme %}
-                                <a class="btn btn-error" href="{{ path('profil_aime_pas',{'id' : theme.id}) }}">Ne plus aimer ce thème</a>
-                            {% else %}
 
-                                <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
-                            {% endif %}
+                {% if usertheme.getAime() == theme %}
+                    {% if usertheme.specialite == 1%}
+                        {% set flag = 2 %}
+                        {%  else %}
+                    {% set flag = 1 %}
+                    {%  endif %}
+                {% endif %}
+
             {% endfor %}
+                        {% if flag == 1%}
+                            <a class="btn btn-error" href="{{ path('profil_aime_pas',{'id' : theme.id}) }}">Ne plus aimer ce thème</a>
+                        {% elseif flag == 2%}
+
+                        {% else %}
+                            <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
+                        {% endif %}
                     </td>
+            {% if is_granted("ROLE_CRITIQUE") %}
+                {% set flag = 0 %}
                     <td>
                         {% for usertheme in app.user.getTheme() %}
                         {% if usertheme.getAime() == theme %}
                             {% if  usertheme.specialite == 0 %}
-                            <a class="btn btn-primary" href="{{ path('profil_specialite',{'id' : theme.id})   }}">Choisir comme spécialité</a>
+                                {% set flag = 1 %}
                             {% else %}
-                            <a class="btn btn-primary" href="{{ path('profil_specialite_retrait',{'id' : theme.id})   }}">retirer des spécialités</a>
+                                {% set flag = 2 %}
                             {% endif %}
                         {% endif %}
                         {% endfor %}
-
+                            {% if  flag == 1 %}
+                                <a class="btn btn-primary" href="{{ path('profil_specialite',{'id' : theme.id})   }}">Choisir comme spécialité</a>
+                            {% elseif flag == 2 %}
+                                <a class="btn btn-primary" href="{{ path('profil_specialite_retrait',{'id' : theme.id})   }}">retirer des spécialités</a>
+                            {% else %}
+                            {% endif %}
                     </td>
+                {% endif %}
                 </tr>
         {% endfor %}
         </tbody>
