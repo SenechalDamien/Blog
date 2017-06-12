@@ -36,7 +36,6 @@ blog_signalementarticle:
     resource: "@BlogBundle/Resources/config/routing/signalementarticle.yml"
     prefix:   /signalementarticle
 
-mesSignalements:
-    path:     /mesSignalements
-    defaults: { _controller: "BlogBundle:Signalement:mesSignalements" }
-    methods:  GET
+blog_signalement:
+    resource: "@BlogBundle/Resources/config/routing/signalement.yml"
+    prefix:   /signalement

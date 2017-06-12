@@ -1,9 +1,14 @@
+mesSignalements:
+    path:     /mesSignalements
+    defaults: { _controller: "BlogBundle:Signalement:mesSignalements" }
+    methods:  GET
+
 signalementarticle_suppression:
     path:     /{id}/delete
     defaults: { _controller: "BlogBundle:Signalement:deleteSignArt" }
-    methods:  DELETE
+    methods:  GET
 
 signalementcom_suppression:
     path:     /{id}/delete
     defaults: { _controller: "BlogBundle:Signalement:deleteSignCom" }
-    methods:  DELETE
+    methods:  GET
