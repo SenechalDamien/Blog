@@ -8,7 +8,17 @@
                 <th>Titre</th>
                 <td>{{ article.titre }}</td>
             </tr>
-			<tr>
+            <tr>
+                <th>Thèmes</th>
+                <td>
+                    <ul>
+                        {% for theme in article.themes %}
+                            <li>{{theme.nom}}</li>
+                            {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
                 <th>Contenu</th>
                 <td>{{ article.contenu }}</td>
             </tr>
@@ -22,41 +32,41 @@
             </tr>
         </tbody>
     </table>
-	
-	<h3>Commentaires</h3>
-	<table class="table">
-		<tr>
-			<td class="text-center"><b>Pseudo</b></td>
-			<td class="text-center"><b>commentaire</b></td>
-			<td class="text-center"><b>note</b></td>
-		</tr>
-		{% set moyenne = 0 %}
-		{% set i = 0 %}
-		{% for com in listecom %}
-			{% set i = i+1 %}
-			{% set moyenne = moyenne+com.note %}
-			<tr>
-				<td class="text-center">{{com.commentePar}}</td>
-				<td class="text-center">{{com.contenu}}</td>
-				<td class="text-center">{{com.note}}</td>
-				<td class="text-center">
-					<a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
-				</td>
-			</tr>
-		{% endfor %}
-		{% if i > 0 %}
-			{% set moyenne = moyenne/i %}
-		{% endif %}
-	</table>
-	<br>
+
+    <h3>Commentaires</h3>
+    <table class="table">
+        <tr>
+            <td class="text-center"><b>Pseudo</b></td>
+            <td class="text-center"><b>commentaire</b></td>
+            <td class="text-center"><b>note</b></td>
+        </tr>
+        {% set moyenne = 0 %}
+        {% set i = 0 %}
+        {% for com in listecom %}
+            {% set i = i+1 %}
+            {% set moyenne = moyenne+com.note %}
+            <tr>
+                <td class="text-center">{{com.commentePar}}</td>
+                <td class="text-center">{{com.contenu}}</td>
+                <td class="text-center">{{com.note}}</td>
+                <td class="text-center">
+                    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
+                </td>
+            </tr>
+        {% endfor %}
+        {% if i > 0 %}
+            {% set moyenne = moyenne/i %}
+        {% endif %}
+    </table>
+    <br>
 
     {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE') %}
 
         <a href="{{ path('commentaire_new', { 'articleId': article.id }) }}">Ecrire un commentaire</a>
     {% endif %}
-	{% if i > 0 %}
-		<h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
-	{% endif %}
+    {% if i > 0 %}
+        <h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
+    {% endif %}
     <ul>
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
@@ -77,7 +87,7 @@
         {% if article.ecritPar.id == app.user.id %}
             <li>
                 {{ form_start(delete_form) }}
-                    <input type="submit" value="Suppimer">
+                <input type="submit" value="Suppimer">
                 {{ form_end(delete_form) }}
             </li>
         {% endif %}

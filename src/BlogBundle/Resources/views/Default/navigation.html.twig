@@ -1,17 +1,18 @@
-
-    <li><a href="{{ path('article_index') }}">Accueil</a></li>
-    <li><a href="{{ path('profil') }}">Mon profil</a></li>
-{% if is_granted('ROLE_ADMIN')%}
+<li><a href="#"><b>User : {{app.user.username}}</b></a></li>
+<li><a href="{{ path('logout') }}">Logout</a></li>
+<li><a href="{{ path('article_index') }}">Accueil</a></li>
+<li><a href="{{ path('profil') }}">Mon profil</a></li>
+    {% if is_granted('ROLE_ADMIN')%}
     <li><a href="{{ path('user_index') }}">Utilisateurs</a></li>
     <li><a href="{{ path('theme_index') }}">Gestion Themes</a></li>
-{% elseif is_granted('ROLE_CRITIQUE')%}
+    {% elseif is_granted('ROLE_CRITIQUE')%}
     <li><a href="{{ path('critique_editer_specialites') }}">Editer mes spécialités</a></li>
     <li><a href="{{ path('commentaire_show_mes_commentaires') }}">Voir mes critiques</a></li>
     <li><a>Voir mes signalements</a></li>
-{% elseif is_granted('ROLE_AUTEUR')%}
+    {% elseif is_granted('ROLE_AUTEUR')%}
     <li><a href="{{ path('article_mesArticles') }}">Voir mes articles</a></li>
     <li><a href="{{ path('article_new') }}">Créer un article</a></li>
-{% elseif is_granted('ROLE_LECTEUR')%}
+    {% elseif is_granted('ROLE_LECTEUR')%}
     <li><a>Rechercher un article</a></li>
-{% endif %}
-    <li><a href="{{ path('mesSignalements') }}">Voir mes signalements</a></li>
+    {% endif %}
+<li><a href="{{ path('mesSignalements') }}">Voir mes signalements</a></li>
