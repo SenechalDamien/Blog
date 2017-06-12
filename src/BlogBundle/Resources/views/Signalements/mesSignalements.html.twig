@@ -2,21 +2,21 @@
 {% block body %}
     <h1>Mes signalements</h1>
 
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>Article Signalé</th>
-                <th>Date</th>
-                <th>raison</th>
+                <th class="text-center">Article Signalé</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">raison</th>
             </tr>
         </thead>
         <tbody>
         {% for signalement in signalementsArt %}
             <tr>
-                <td>{{signalement.signale.titre}}</td>
-                <td>{{ signalement.date|date('d-m-Y') }}</td>
-				<td>{{ signalement.raison }}</td>
-				<td>
+                <td class="text-center">{{signalement.signale.titre}}</td>
+                <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
+				<td class="text-center">{{ signalement.raison }}</td>
+				<td class="text-center">
 					 <a href="{{ path('signalementarticle_suppression', { 'id': signalement.id }) }}">Supprimer</a>
 				</td>
             </tr>
@@ -24,21 +24,21 @@
         </tbody>
     </table>
 	<br>
-	 <table>
+	 <table class="table">
         <thead>
             <tr>
-                <th>Commentaire Signalé</th>
-                <th>Date</th>
-                <th>raison</th>
+                <th class="text-center">Commentaire Signalé</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">raison</th>
             </tr>
         </thead>
         <tbody>
         {% for signalement in signalementsCom %}
             <tr>
-                <td>{{ signalement.signale.contenu }}</td>
-                <td>{{ signalement.date|date('d-m-Y') }}</td>
-				<td>{{ signalement.raison }}</td>
-				<td>
+                <td class="text-center">{{ signalement.signale.contenu }}</td>
+                <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
+				<td class="text-center">{{ signalement.raison }}</td>
+				<td class="text-center">
 					 <a href="{{ path('signalementcom_suppression', { 'id': signalement.id }) }}">Supprimer</a>
 				</td>
             </tr>

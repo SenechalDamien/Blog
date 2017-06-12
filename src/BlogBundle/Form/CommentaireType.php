@@ -2,6 +2,7 @@
 
 namespace BlogBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,7 +14,7 @@ class CommentaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('contenu')->add('note',null, array('attr' => array('min' => 0,'max' => 5))); //->add('commentePar')->add('articleAssocie')
+        $builder->add('contenu', TextareaType::class)->add('note',null, array('attr' => array('min' => 0,'max' => 5))); //->add('commentePar')->add('articleAssocie')
     }
     
     /**

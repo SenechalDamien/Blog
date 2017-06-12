@@ -2,12 +2,8 @@
 
 {% block body %}
     <h1>Article</h1>
-    <table>
+    <table class="table">
         <tbody>
-            {#<tr>
-               <th>Id</th>
-               <td>{{ article.id }}</td>
-            </tr>#}
             <tr>
                 <th>Titre</th>
                 <td>{{ article.titre }}</td>
@@ -28,11 +24,11 @@
     </table>
 	
 	<h3>Commentaires</h3>
-	<table>
+	<table class="table">
 		<tr>
-			<td><b>Pseudo</b></td>
-			<td><b>commentaire</b></td>
-			<td><b>note</b></td>
+			<td class="text-center"><b>Pseudo</b></td>
+			<td class="text-center"><b>commentaire</b></td>
+			<td class="text-center"><b>note</b></td>
 		</tr>
 		{% set moyenne = 0 %}
 		{% set i = 0 %}
@@ -40,12 +36,12 @@
 			{% set i = i+1 %}
 			{% set moyenne = moyenne+com.note %}
 			<tr>
-				<td>{{com.commentePar}}</td>
-				<td>{{com.contenu}}</td>
-				<td>{{com.note}}</td>
-				    <td>
-					    <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
-				    </td>
+				<td class="text-center">{{com.commentePar}}</td>
+				<td class="text-center">{{com.contenu}}</td>
+				<td class="text-center">{{com.note}}</td>
+				<td class="text-center">
+					<a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
+				</td>
 			</tr>
 		{% endfor %}
 		{% if i > 0 %}
