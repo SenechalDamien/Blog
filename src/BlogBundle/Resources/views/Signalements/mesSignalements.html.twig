@@ -8,41 +8,71 @@
                 <th class="text-center">Article Signalé</th>
                 <th class="text-center">Date</th>
                 <th class="text-center">raison</th>
+                    {% if is_granted('ROLE_ADMIN')%}
+                    <th class="text-center">Auteur</th>
+                    {% endif %}
+                <th class="text-center">Supprimer Signalement</th>
             </tr>
         </thead>
         <tbody>
-        {% for signalement in signalementsArt %}
-            <tr>
-                <td class="text-center">{{signalement.signale.titre}}</td>
-                <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
-				<td class="text-center">{{ signalement.raison }}</td>
-				<td class="text-center">
-					 <a href="{{ path('signalementarticle_suppression', { 'id': signalement.id }) }}">Supprimer</a>
-				</td>
-            </tr>
-        {% endfor %}
+            {% for signalement in signalementsArt %}
+                <tr>
+                    <td class="text-center">
+                        <a href="{{ path('article_show', { 'id': signalement.signale.id }) }}">
+                            {{signalement.signale.titre}}
+                        </a>
+                    </td>
+                    <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
+                    <td class="text-center">{{ signalement.raison }}</td>
+                    {% if is_granted('ROLE_ADMIN')%}
+                        <td class="text-center">
+                            <a href="{{ path('user_edit', { 'id': signalement.signalePar.id }) }}">
+                                {{ signalement.signalePar.username }}
+                            </a>
+                        </td>
+                    {% endif %}
+                    <td class="text-center">
+                        <a href="{{ path('signalementarticle_suppression', { 'id': signalement.id }) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-	<br>
-	 <table class="table">
+    <br>
+    <table class="table">
         <thead>
             <tr>
                 <th class="text-center">Commentaire Signalé</th>
                 <th class="text-center">Date</th>
                 <th class="text-center">raison</th>
+                    {% if is_granted('ROLE_ADMIN')%}
+                    <th class="text-center">Auteur</th>
+                    {% endif %}
+                <th class="text-center">Supprimer Signalement</th>
             </tr>
         </thead>
         <tbody>
-        {% for signalement in signalementsCom %}
-            <tr>
-                <td class="text-center">{{ signalement.signale.contenu }}</td>
-                <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
-				<td class="text-center">{{ signalement.raison }}</td>
-				<td class="text-center">
-					 <a href="{{ path('signalementcom_suppression', { 'id': signalement.id }) }}">Supprimer</a>
-				</td>
-            </tr>
-        {% endfor %}
+            {% for signalement in signalementsCom %}
+                <tr>     
+                    <td class="text-center">
+                        <a href="{{ path('commentaire_show', { 'id': signalement.signale.id }) }}">
+                            {{ signalement.signale.contenu }}
+                        </a>
+                    </td>
+                    <td class="text-center">{{ signalement.date|date('d-m-Y') }}</td>
+                    <td class="text-center">{{ signalement.raison }}</td>
+                    {% if is_granted('ROLE_ADMIN')%}
+                        <td class="text-center">
+                            <a href="{{ path('user_edit', { 'id': signalement.signalePar.id }) }}">
+                                {{ signalement.signalePar.username }}
+                            </a>
+                        </td>
+                    {% endif %}
+                    <td class="text-center">
+                        <a href="{{ path('signalementcom_suppression', { 'id': signalement.id }) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 {% endblock %}
