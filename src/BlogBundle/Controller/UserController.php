@@ -162,7 +162,7 @@ class UserController extends Controller
             return $this->redirectToRoute('profil');
         else {
             foreach($userThemes as $userTheme) {
-                $em->remove($userTheme)
+                $em->remove($userTheme);
             }
         }
         return $this->redirectToRoute('profil');

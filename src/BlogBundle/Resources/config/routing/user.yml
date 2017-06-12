@@ -47,7 +47,7 @@ profil_specialite:
     methods:  [GET, POST]
 
 profil_aime_pas:
-    path:     /profil/aime/{id}
+    path:     /profil/aimepas/{id}
     defaults: { _controller: "BlogBundle:User:addUserTheme" }
     methods:  [GET, POST]
 
