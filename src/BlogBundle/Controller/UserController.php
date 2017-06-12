@@ -144,7 +144,17 @@ class UserController extends Controller
         return $this->redirectToRoute('profil');
     }
 
-    public function removeUserTheme($id)
+    public function removeSpecialiteAction($id)
+    {
+        $user = $this->getUser();
+        foreach($user->getTheme() as $theme){
+            if($theme->getAime() == $theme)
+                $theme->setSpecialite(0);
+        }
+        return $this->redirectToRoute('profil');
+    }
+
+    public function removeUserThemeAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
