@@ -25,7 +25,7 @@ class ArticleController extends Controller
         if($this->isGranted('ROLE_CRITIQUE')){
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesCritique($this->getUser());
         }
-        else if(false == $this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+        else if(false == $this->get('security.authorization_checker')->isGranted('ROLE_LECTEUR')) {
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
         }
         else
