@@ -122,21 +122,22 @@ class ArticleController extends Controller {
      * Finds and displays a article entity.
      *
      */
-    public function showAction(Article $article) {
-        $repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaire');
-        $listecom = $repository->findByArticleAssocie($article->getId());
-
-        $signcom = new SignalementCom();
-        $signalercom = $this->createForm('BlogBundle\Form\SignalementComType', $signcom);
-
+    public function showAction(Article $article)
+    {
+		$repository = $this->getDoctrine()->getManager()->getRepository('BlogBundle:Commentaire');
+		$listecom = $repository->findByArticleAssocie($article->getId());
+		
+		//$signcom = new SignalementCom();
+		//$signalercom = $this->createForm('BlogBundle\Form\SignalementComType', $signcom);
+		
         $deleteForm = $this->createDeleteForm($article);
 
         return $this->render('article/show.html.twig', array(
-                    'article' => $article,
-                    'listecom' => $listecom,
-                    'signalercom' => $signalercom,
-                    'delete_form' => $deleteForm->createView(),
-                    'user' => $this->getUser(),
+            'article' => $article,
+			'listecom' => $listecom,
+			//'signalercom' => $signalercom,
+            'delete_form' => $deleteForm->createView(),
+            'user' => $this->getUser(),
         ));
     }
 
@@ -186,6 +187,8 @@ class ArticleController extends Controller {
         $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
+    
+
 
     /**
      * Creates a form to delete a article entity.
@@ -200,6 +203,14 @@ class ArticleController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
+    }
+    
+    public function deleteArticleAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article=$em->getRepository('BlogBundle:Article')->find($id);
+        $article->setActive(0);
+        $em->flush();
+        return $this->redirectToRoute('article_index');
     }
 
 }

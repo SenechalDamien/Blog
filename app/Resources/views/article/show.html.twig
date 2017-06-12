@@ -84,11 +84,11 @@
                 <a href="{{ path('signalementarticle_new', { 'articleId': article.id }) }}">Signaler cet article</a>
             </li>
         {% endif %}
-        {% if article.ecritPar.id == app.user.id %}
+        {% if article.ecritPar.id == app.user.id or is_granted('ROLE_ADMIN')%}
             <li>
-                {{ form_start(delete_form) }}
-                <input type="submit" value="Suppimer">
-                {{ form_end(delete_form) }}
+                <a href="{{ path('article_suppression', { 'id': article.id }) }}">
+                    Suppimer
+                </a>
             </li>
         {% endif %}
     </ul>

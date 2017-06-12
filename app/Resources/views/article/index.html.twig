@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         {% for article in articles %}
-            {% if article.ecritPar.id != app.user.id %}
+            {% if article.ecritPar.id != app.user.id and article.active==1  %}
                 <tr>
                     <td class="text-center">{{ article.titre }}</td>
                     <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>

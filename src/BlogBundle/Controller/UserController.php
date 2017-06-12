@@ -117,20 +117,18 @@ class UserController extends Controller
 
     public function addUserThemeAction($id)
     {
-       var_dump($id);
+        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
+        if($userThemes->count() != 0)
+            return $this->redirectToRoute('profil');
+
         $em = $this->getDoctrine()->getManager();
         $theme = $em->getRepository('BlogBundle:Theme')->find($id);//findOneBy(array('nom' => $id));
-        //var_dump($theme);
-        //exit(0);
 
         $userTheme = new UserThemes;
         $userTheme->setAimePar($this->getUser());
         $userTheme->setAime($theme);
         $userTheme->setSpecialite(0);
-        
-        //$this->getUser()->addTheme($theme);
-        //$em = $this->getDoctrine()->getManager();
-        //$em->persist($this->getUser());
+
         $em->persist($userTheme);
         $em->flush();
         return $this->redirectToRoute('profil');
@@ -144,7 +142,20 @@ class UserController extends Controller
                 $theme->setSpecialite(1);
         }
         return $this->redirectToRoute('profil');
+    }
 
+    public function removeUserTheme($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userThemes = $em->getRepository('BlogBundle:UserTheme')->findBy(array('aime' => $id), array('aimePar' => $this->getUser()->getId()));
+        if($userThemes->count() == 0)
+            return $this->redirectToRoute('profil');
+        else {
+            foreach($userThemes as $userTheme) {
+                $em->remove($userTheme)
+            }
+        }
+        return $this->redirectToRoute('profil');
     }
 
     /**
