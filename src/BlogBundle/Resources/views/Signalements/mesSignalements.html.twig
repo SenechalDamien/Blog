@@ -17,10 +17,7 @@
                 <td>{{ signalement.date|date('d-m-Y') }}</td>
 				<td>{{ signalement.raison }}</td>
 				<td>
-					 <a href="{{ path('signalementarticle_delete', { 'id': signalement.id }) }}">Supprimer</a>
-					{#{{ form_start(delete_form) }}
-					<input type="submit" value="Supprimer">
-					{{ form_end(delete_form) }}#}
+					 <a href="{{ path('signalementarticle_suppression', { 'id': signalement.id }) }}">Supprimer</a>
 				</td>
             </tr>
         {% endfor %}
@@ -41,6 +38,9 @@
                 <td>{{ signalement.signale.contenu }}</td>
                 <td>{{ signalement.date|date('d-m-Y') }}</td>
 				<td>{{ signalement.raison }}</td>
+				<td>
+					 <a href="{{ path('signalementcom_suppression', { 'id': signalement.id }) }}">Supprimer</a>
+				</td>
             </tr>
         {% endfor %}
         </tbody>
