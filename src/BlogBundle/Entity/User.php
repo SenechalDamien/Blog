@@ -3,11 +3,11 @@
 namespace BlogBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * User
  */
-class User implements UserInterface, \Serializable {
+class User implements AdvancedUserInterface, \Serializable {
 
     /**
      * @var integer
@@ -328,11 +328,32 @@ class User implements UserInterface, \Serializable {
         return null;
     }
 
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->active;
+    }
+    
     public function serialize() {
         return serialize(array(
             $this->id,
             $this->username,
             $this->password,
+            $this->active
         ));
     }
 
@@ -341,6 +362,7 @@ class User implements UserInterface, \Serializable {
                 $this->id,
                 $this->username,
                 $this->password,
+                $this->active,
                 ) = unserialize($serialized);
     }
 
