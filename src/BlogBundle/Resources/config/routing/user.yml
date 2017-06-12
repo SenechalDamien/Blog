@@ -34,3 +34,11 @@ critique_editer_specialites:
 profil:
     path:     /profil
     defaults: { _controller: "BlogBundle:User:profil" }
+
+profil_aime:
+    path:     /profil/aime/{theme}
+    defaults: { _controller: "BlogBundle:User:addUserTheme" }
+
+profil_specialite:
+    path:     /profil/specialite/{theme}
+    defaults: { _controller: "BlogBundle:User:addSpecialite" }

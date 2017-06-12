@@ -6,13 +6,20 @@
         <thead>
             <tr>
                 <th>Thème</th>
-
                 <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for theme in themes %}
-                <tr><td>{{ theme.nom }}</td><td><a class="btn btn-primary" href="{{ path('',) }}">Ajouter à mes spécialités</a></td></tr>
+                <tr>
+                    <td>{{ theme.nom }}</td><td>
+                        <a class="btn btn-primary" href="{{ path('profil_aime',{'theme' : theme}) }}">Aimer ce thème</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('profil_specialite',{'theme' : theme})   }}">Choisir comme spécialité</a>
+                    </td>
+                </tr>
         {% endfor %}
         </tbody>
     </table>
