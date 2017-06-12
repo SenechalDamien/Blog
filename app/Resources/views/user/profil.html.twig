@@ -14,10 +14,26 @@
         {% for theme in themes %}
                 <tr>
                     <td>{{ theme.nom }}</td><td>
-                        <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
+            {% for usertheme in app.user.getTheme() %}
+                            {% if usertheme.getAime() == theme %}
+                                <a class="btn btn-error" href="{{ path('profil_aime_pas',{'id' : theme.id}) }}">Ne plus aimer ce thème</a>
+                            {% else %}
+
+                                <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
+                            {% endif %}
+            {% endfor %}
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('profil_specialite',{'id' : theme.id})   }}">Choisir comme spécialité</a>
+                        {% for usertheme in app.user.getTheme() %}
+                        {% if usertheme.getAime() == theme %}
+                            {% if  usertheme.specialite == 0 %}
+                            <a class="btn btn-primary" href="{{ path('profil_specialite',{'id' : theme.id})   }}">Choisir comme spécialité</a>
+                            {% else %}
+                            <a class="btn btn-primary" href="{{ path('profil_specialite_retrait',{'id' : theme.id})   }}">retirer des spécialités</a>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
                     </td>
                 </tr>
         {% endfor %}
@@ -45,7 +61,13 @@
                 </tr>
             </thead>
             <tbody>
-
+            {% for theme in app.user.getTheme() %}
+                <tr>
+                {% if theme.specialite == 1 %}
+                    <td>{{ theme.getAime().nom }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
             </tbody>
         </table>
     {% endif %}

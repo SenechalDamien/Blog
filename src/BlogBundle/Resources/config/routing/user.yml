@@ -45,3 +45,13 @@ profil_specialite:
     path:     /profil/specialite/{id}
     defaults: { _controller: "BlogBundle:User:addSpecialite" }
     methods:  [GET, POST]
+
+profil_aime_pas:
+    path:     /profil/aime/{id}
+    defaults: { _controller: "BlogBundle:User:addUserTheme" }
+    methods:  [GET, POST]
+
+profil_specialite_retrait:
+    path:     /profil/specialite/{id}
+    defaults: { _controller: "BlogBundle:User:addSpecialite" }
+    methods:  [GET, POST]
