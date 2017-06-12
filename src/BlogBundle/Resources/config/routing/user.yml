@@ -48,10 +48,10 @@ profil_specialite:
 
 profil_aime_pas:
     path:     /profil/aimepas/{id}
-    defaults: { _controller: "BlogBundle:User:addUserTheme" }
+    defaults: { _controller: "BlogBundle:User:removeUserTheme" }
     methods:  [GET, POST]
 
 profil_specialite_retrait:
-    path:     /profil/specialite/{id}
-    defaults: { _controller: "BlogBundle:User:addSpecialite" }
+    path:     /profil/retraitspecialite/{id}
+    defaults: { _controller: "BlogBundle:User:removeSpecialite" }
     methods:  [GET, POST]
