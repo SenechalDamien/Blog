@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\User;
+use BlogBundle\Entity\UserThemes;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -114,6 +115,37 @@ class UserController extends Controller
         return $this->redirectToRoute('user_index');
     }
 
+    public function addUserThemeAction($id)
+    {
+       var_dump($id);
+        $em = $this->getDoctrine()->getManager();
+        $theme = $em->getRepository('BlogBundle:Theme')->find($id);//findOneBy(array('nom' => $id));
+        //var_dump($theme);
+        //exit(0);
+
+        $userTheme = new UserThemes;
+        $userTheme->setAimePar($this->getUser());
+        $userTheme->setAime($theme);
+        $userTheme->setSpecialite(0);
+        
+        //$this->getUser()->addTheme($theme);
+        //$em = $this->getDoctrine()->getManager();
+        //$em->persist($this->getUser());
+        $em->persist($userTheme);
+        $em->flush();
+        return $this->redirectToRoute('profil');
+    }
+
+    public function addSpecialiteAction($id)
+    {
+        $user = $this->getUser();
+        foreach($user->getTheme() as $theme){
+            if($theme->getAime() == $theme)
+                $theme->setSpecialite(1);
+        }
+        return $this->redirectToRoute('profil');
+
+    }
 
     /**
      * Creates a form to delete a user entity.

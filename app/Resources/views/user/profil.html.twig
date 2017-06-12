@@ -14,10 +14,10 @@
         {% for theme in themes %}
                 <tr>
                     <td>{{ theme.nom }}</td><td>
-                        <a class="btn btn-primary" href="{{ path('profil_aime',{'theme' : theme}) }}">Aimer ce thème</a>
+                        <a class="btn btn-primary" href="{{ path('profil_aime',{'id' : theme.id}) }}">Aimer ce thème</a>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="{{ path('profil_specialite',{'theme' : theme})   }}">Choisir comme spécialité</a>
+                        <a class="btn btn-primary" href="{{ path('profil_specialite',{'id' : theme.id})   }}">Choisir comme spécialité</a>
                     </td>
                 </tr>
         {% endfor %}

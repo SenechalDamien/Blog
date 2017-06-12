@@ -13,6 +13,7 @@
                 <th class="text-center">Datemodif</th>
                 <th class="text-center">Datepublication</th>
 				<th class="text-center">Nombre de commentaires</th>
+				<th class="text-center">Thèmes</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -24,6 +25,13 @@
                     <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
                     <td class="text-center">{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
                     <td class="text-center">{{article.comArticle|length}}</td>
+					<td class="text-center">
+						<ul>
+							{% for theme in article.themes %}
+							<li>{{theme.nom}}</li>
+							{% endfor %}
+						</ul>
+					</td>
 					<td class="text-center">
                         <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>
                     </td>
