@@ -186,6 +186,8 @@ class ArticleController extends Controller {
         $em->flush($article);
         return $this->redirectToRoute('article_index');
     }
+    
+
 
     /**
      * Creates a form to delete a article entity.
@@ -200,6 +202,14 @@ class ArticleController extends Controller {
                         ->setMethod('DELETE')
                         ->getForm()
         ;
+    }
+    
+    public function deleteArticleAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article=$em->getRepository('BlogBundle:Article')->find($id);
+        $article->setActive(0);
+        $em->flush();
+        return $this->redirectToRoute('article_index');
     }
 
 }
