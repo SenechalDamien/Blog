@@ -20,6 +20,7 @@
         </thead>
         <tbody>
         {% for article in articles %}
+            {%if and article.active==1 %}
             <tr>
                 <td class="text-center">{{ article.titre }}</td>
                 <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
@@ -43,6 +44,7 @@
                     </ul>
                 </td>
             </tr>
+            {%endif %}
         {% endfor %}
         </tbody>
     </table>
