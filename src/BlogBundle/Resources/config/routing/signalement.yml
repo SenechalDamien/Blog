@@ -4,11 +4,11 @@ mesSignalements:
     methods:  GET
 
 signalementarticle_suppression:
-    path:     /{id}/delete
+    path:     /{id}/deleteart
     defaults: { _controller: "BlogBundle:Signalement:deleteSignArt" }
     methods:  GET
 
 signalementcom_suppression:
-    path:     /{id}/delete
+    path:     /{id}/deletecom
     defaults: { _controller: "BlogBundle:Signalement:deleteSignCom" }
     methods:  GET

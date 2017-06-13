@@ -1,18 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Mes Articles</h1>
-
-    <p>
-        <a href="{{ path('article_index') }}">Voir tout les articles</a>
-    </p>	
+    <h1>Mes Articles</h1>	
 
     <table class="table">
         <thead>
             <tr>
                 <th class="text-center">Titre</th>
-                <th class="text-center">Datemodif</th>
-                <th class="text-center">Datepublication</th>
+                <th class="text-center">Dernière modification</th>
+                <th class="text-center">Date de publication</th>
 				<th class="text-center">Nombre de commentaires</th>
 				<th class="text-center">Thèmes</th>
                 <th class="text-center">Actions</th>
