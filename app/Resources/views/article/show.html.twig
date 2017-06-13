@@ -94,9 +94,11 @@
             </li>
         {% endif %}
         {% if article.ecritPar.id != app.user.id %}
+            {% if not article.marquesParUsers.contains(app.user) %}
             <li>
                 <a href="{{ path('article_add_marque_user',  { 'id' : article.id }) }}">Marquer comme lu</a>
             </li>
+            {% endif %}
             <li>
                 <a href="{{ path('signalementarticle_new', { 'articleId': article.id }) }}">Signaler cet article</a>
             </li>
