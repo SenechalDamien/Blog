@@ -52,7 +52,7 @@
             {% endif %}
         {% endif %}
 
-        {% if not (article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE'))  %}
+        {% if not (article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE') and not is_granted('ROLE_ADMIN'))  %}
 
             <h3>Commentaires</h3>
             <table class="table">
