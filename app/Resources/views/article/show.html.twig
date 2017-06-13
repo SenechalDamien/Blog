@@ -37,6 +37,40 @@
                 </tr>
             </tbody>
         </table>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Titre</th>
+                <td>{{ article.titre }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ article.ecritPar.username }}</td>
+            </tr>
+            <tr>
+                <th>Thèmes</th>
+                <td>
+                    <ul>
+                        {% for theme in article.themes %}
+                            <li>{{theme.nom}}</li>
+                            {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ article.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Date de dernière modification</th>
+                <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Date de publication</th>
+                <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
 
         {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE')  %}
             {% set flag = 0 %}
