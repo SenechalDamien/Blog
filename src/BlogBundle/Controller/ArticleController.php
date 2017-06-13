@@ -221,14 +221,15 @@ class ArticleController extends Controller {
     }
     
     public function deleteArticleAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article=$em->getRepository('BlogBundle:Article')->find($id);
         if (!(($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')))
             throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
 
-            $em = $this->getDoctrine()->getManager();
-            $article=$em->getRepository('BlogBundle:Article')->find($id);
-            $article->setActive(0);
-            $em->flush();
-            return $this->redirectToRoute('article_index');
+
+        $article->setActive(0);
+        $em->flush();
+        return $this->redirectToRoute('article_index');
         
     }
 
