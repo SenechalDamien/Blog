@@ -50,7 +50,7 @@ class SignalementController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $signalementCom = $em->getRepository('BlogBundle:SignalementCom')->find($id);
 
-        if(!($this->getUser()->comSignale()->contains($signalementCom) || $this->getUser()->isGranted("ROLE_ADMIN")){
+        if(!($this->getUser()->comSignale()->contains($signalementCom) || $this->getUser()->isGranted("ROLE_ADMIN"))){
             throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
         }
 
