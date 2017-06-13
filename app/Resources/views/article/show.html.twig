@@ -3,40 +3,6 @@
 {% block body %}
     <h1>Article</h1>
     {% if article.ecritPar.active==1 %}
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Titre</th>
-                    <td>{{ article.titre }}</td>
-                </tr>
-                <tr>
-                    <th>Auteur</th>
-                    <td>{{ article.ecritPar.username }}</td>
-                </tr>
-                <tr>
-                    <th>Thèmes</th>
-                    <td>
-                        <ul>
-                            {% for theme in article.themes %}
-                                <li>{{theme.nom}}</li>
-                                {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Contenu</th>
-                    <td>{{ article.contenu }}</td>
-                </tr>
-                <tr>
-                    <th>Datemodif</th>
-                    <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
-                </tr>
-                <tr>
-                    <th>Datepublication</th>
-                    <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
-                </tr>
-            </tbody>
-        </table>
     <table class="table">
         <tbody>
             <tr>
