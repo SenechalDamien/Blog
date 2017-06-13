@@ -51,6 +51,8 @@
         {% endif %}
     {% endif %}
 
+    {% if not (article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE'))  %}
+
     <h3>Commentaires</h3>
     <table class="table">
         <tr>
@@ -79,11 +81,11 @@
 
     <br>
 
-
-
     {% if i > 0 %}
         <h4>Moyenne globale : {{moyenne|round(2, 'floor')}}</h4>
     {% endif %}
+    {% endif %}
+
     <ul>
         <li>
             <a href="{{ path('article_index') }}">Revenir à la liste des articles</a>
