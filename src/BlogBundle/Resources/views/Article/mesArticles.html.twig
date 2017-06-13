@@ -3,45 +3,72 @@
 {% block body %}
     <h1>Mes Articles</h1>	
 
+    {% set moyennetot = 0 %}
+    {% set nbtot = 0 %}
     <table class="table">
         <thead>
             <tr>
                 <th class="text-center">Titre</th>
                 <th class="text-center">Dernière modification</th>
                 <th class="text-center">Date de publication</th>
-				<th class="text-center">Nombre de commentaires</th>
-				<th class="text-center">Thèmes</th>
+                <th class="text-center">Nombre de commentaires</th>
+                <th class="text-center">Thèmes</th>
+                <th class="text-center">Moyenne</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
-            {%if article.active==1 %}
-            <tr>
-                <td class="text-center">{{ article.titre }}</td>
-                <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
-                <td class="text-center">{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
-                <td class="text-center">{{article.comArticle|length}}</td>
-				<td class="text-center">
-					<ul>
-						{% for theme in article.themes %}
-						<li>{{theme.nom}}</li>
-						{% endfor %}
-					</ul>
-				</td>
-				<td class="text-center">
-                    <ul>
-                        <li>
-                            <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            {%endif %}
-        {% endfor %}
+            {% for article in articles %}
+                {%if article.active==1 %}
+                    <tr>
+                        <td class="text-center">{{ article.titre }}</td>
+                        <td class="text-center">{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
+                        <td class="text-center">{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
+                        <td class="text-center">{{article.comArticle|length}}</td>
+                        <td class="text-center">
+                            <ul>
+                                {% for theme in article.themes %}
+                                    <li>{{theme.nom}}</li>
+                                    {% endfor %}
+                            </ul>
+                        </td>
+                        <td class="text-center">
+                            <ul>
+                                {%if article.comArticle is empty %}
+                                    Pas de commentaires
+                                {%else%}
+                                    {% set moyenne = 0 %}
+                                    {% set nb = 0 %}
+                                    {%for com in article.comArticle %}
+                                        {% set moyenne = moyenne + com.note  %}
+                                        {% set nb = nb + 1 %}
+                                    {%endfor%}
+                                    {% set moyenne = moyenne / nb %}
+                                    {{moyenne}}
+                                    {% set moyennetot = moyennetot +  moyenne%}
+                                    {% set nbtot = nbtot +1 %}
+                                {%endif%}
+                            </ul>
+                        </td>
+                        <td class="text-center">
+                            <ul>
+                                <li>
+                                    <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('article_edit', { 'id': article.id }) }}">Modifier</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {%endif %}
+            {% endfor %}
         </tbody>
     </table>
+    {%if nbtot != 0 %}
+        {% set moyennetot = moyennetot / nbtot%}
+        Moyenne total : {{moyennetot}}
+    {%else%}
+        Pas de commentaires
+    {%endif%}
 {% endblock %}
