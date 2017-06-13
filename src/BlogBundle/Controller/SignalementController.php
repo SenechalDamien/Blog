@@ -35,12 +35,25 @@ class SignalementController extends Controller {
 
     public function deleteSignArtAction($id) {
         $em = $this->getDoctrine()->getManager();
+        $signalementsArt = $em->getRepository('BlogBundle:SignalementArticle')->find($id);
+
+        if(!$this->getUser()->articleSignale()->contains($signalementsArt) || $this->getUser()->isGranted("ROLE_ADMIN")){
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+        }
+
         $em->remove($em->getRepository('BlogBundle:SignalementArticle')->find($id));
         $em->flush();
         return $this->redirectToRoute('mesSignalements');
     }
 
     public function deleteSignComAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $signalementCom = $em->getRepository('BlogBundle:SignalementCom')->find($id);
+
+        if(!($this->getUser()->comSignale()->contains($signalementCom) || $this->getUser()->isGranted("ROLE_ADMIN")){
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($em->getRepository('BlogBundle:SignalementCom')->find($id));
         $em->flush();

@@ -54,9 +54,7 @@ class ArticleController extends Controller {
         } else if ($this->isGranted('ROLE_LECTEUR')) {
             $articles = $em->getRepository('BlogBundle:Article')->findArticlesNonLus($this->getUser());
         } else
-            $articles = $em->getRepository('BlogBundle:Article')->findAll();
-
-        
+            $articles = $em->getRepository('BlogBundle:Article')->findAll();    
 
         $user = $this->getUser();
         // possible bug
@@ -82,11 +80,11 @@ class ArticleController extends Controller {
     }
 
     public function mesArticlesAction() {
-        if ($this->isGranted('ROLE_AUTEUR')) {
-            $em = $this->getDoctrine()->getManager();
+        $this->denyAccessUnlessGranted('ROLE_AUTEUR', null, 'YOU SHALL NOT PASS');
 
-            $articles = $em->getRepository('BlogBundle:Article')->findByEcritPar($this->getUser()->getId());
-        }
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('BlogBundle:Article')->findByEcritPar($this->getUser()->getId());
 
         return $this->render('BlogBundle:Article:mesArticles.html.twig', array(// article/index.html.twig
                     'articles' => $articles,
@@ -98,7 +96,8 @@ class ArticleController extends Controller {
      *
      */
     public function newAction(Request $request) {
-        if ($this->isGranted('ROLE_AUTEUR')){
+        $this->denyAccessUnlessGranted('ROLE_AUTEUR', null, 'YOU SHALL NOT PASS');
+
             $article = new Article();
             $form = $this->createForm('BlogBundle\Form\ArticleType', $article);
             //$form->add('submit', SubmitType::class, array('label' => 'Valider'));
@@ -118,8 +117,8 @@ class ArticleController extends Controller {
                 $em->flush($article);
 
                 return $this->redirectToRoute('article_show', array('id' => $article->getId()));
+            
             }
-        }
         return $this->render('article/new.html.twig', array(//   BlogBundle:Article:new.html.twig
                     'article' => $article,
                     'form' => $form->createView(),
@@ -155,7 +154,9 @@ class ArticleController extends Controller {
      */
     public function editAction(Request $request, Article $article) {
 
-        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+        if (!(($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN'))) 
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+
             $deleteForm = $this->createDeleteForm($article);
             $editForm = $this->createForm('BlogBundle\Form\ArticleType', $article);
             $editForm->handleRequest($request);
@@ -166,7 +167,7 @@ class ArticleController extends Controller {
 
                 return $this->redirectToRoute('article_edit', array('id' => $article->getId()));
             }
-        }
+        
         return $this->render('article/edit.html.twig', array(
                     'article' => $article,
                     'edit_form' => $editForm->createView(),
@@ -179,7 +180,9 @@ class ArticleController extends Controller {
      *
      */
     public function deleteAction(Request $request, Article $article) {
-        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+        if (!(($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')))
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+
             $form = $this->createDeleteForm($article);
             $form->handleRequest($request);
 
@@ -190,7 +193,7 @@ class ArticleController extends Controller {
             }
 
             return $this->redirectToRoute('article_index');
-        }
+        
     }
 
     public function addMarqueUserAction(Article $article) {
@@ -218,13 +221,15 @@ class ArticleController extends Controller {
     }
     
     public function deleteArticleAction($id) {
-        if (($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')) {
+        if (!(($this->isGranted('ROLE_AUTEUR') && $this->getUser()->getArticle()->contains($article)) || $this->isGranted('ROLE_ADMIN')))
+            throw $this->createAccessDeniedException('YOU SHALL NOT PASS');
+
             $em = $this->getDoctrine()->getManager();
             $article=$em->getRepository('BlogBundle:Article')->find($id);
             $article->setActive(0);
             $em->flush();
             return $this->redirectToRoute('article_index');
-        }
+        
     }
 
 }
