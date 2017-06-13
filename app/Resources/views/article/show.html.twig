@@ -3,40 +3,40 @@
 {% block body %}
     <h1>Article</h1>
     {% if article.ecritPar.active==1 %}
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Titre</th>
-                <td>{{ article.titre }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ article.ecritPar.username }}</td>
-            </tr>
-            <tr>
-                <th>Thèmes</th>
-                <td>
-                    <ul>
-                        {% for theme in article.themes %}
-                            <li>{{theme.nom}}</li>
-                            {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ article.contenu }}</td>
-            </tr>
-            <tr>
-                <th>Date de dernière modification</th>
-                <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Date de publication</th>
-                <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <td>{{ article.titre }}</td>
+                </tr>
+                <tr>
+                    <th>Auteur</th>
+                    <td>{{ article.ecritPar.username }}</td>
+                </tr>
+                <tr>
+                    <th>Thèmes</th>
+                    <td>
+                        <ul>
+                            {% for theme in article.themes %}
+                                <li>{{theme.nom}}</li>
+                                {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Contenu</th>
+                    <td>{{ article.contenu }}</td>
+                </tr>
+                <tr>
+                    <th>Date de dernière modification</th>
+                    <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
+                </tr>
+                <tr>
+                    <th>Date de publication</th>
+                    <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
 
         {% if article.ecritPar.id != app.user.id and is_granted('ROLE_CRITIQUE')  %}
             {% set flag = 0 %}
@@ -64,16 +64,18 @@
                 {% set moyenne = 0 %}
                 {% set i = 0 %}
                 {% for com in listecom %}
-                    {% set i = i+1 %}
-                    {% set moyenne = moyenne+com.note %}
-                    <tr>
-                        <td class="text-center">{{com.commentePar}}</td>
-                        <td class="text-center">{{com.contenu}}</td>
-                        <td class="text-center">{{com.note}}</td>
-                        <td class="text-center">
-                            <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
-                        </td>
-                    </tr>
+                    {%if com.ecritPar.active==1 %}
+                        {% set i = i+1 %}
+                        {% set moyenne = moyenne+com.note %}
+                        <tr>
+                            <td class="text-center">{{com.commentePar}}</td>
+                            <td class="text-center">{{com.contenu}}</td>
+                            <td class="text-center">{{com.note}}</td>
+                            <td class="text-center">
+                                <a href="{{ path('signalementcom_new', { 'commentaireId': com.id }) }}">Signaler</a>
+                            </td>
+                        </tr>
+                    {%endif%}
                 {% endfor %}
                 {% if i > 0 %}
                     {% set moyenne = moyenne/i %}
