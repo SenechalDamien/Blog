@@ -14,6 +14,7 @@
                 <th class="text-center">Date de publication</th>
                 <th class="text-center">Nombre de commentaires</th>
                 <th class="text-center">Thèmes</th>
+				<th class="text-center">Moyenne</th>
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
@@ -43,6 +44,22 @@
                                     <li>{{theme.nom}}</li>
                                     {% endfor %}
                             </ul>
+                        </td>
+						<td class="text-center">
+							{%if article.comArticle is empty %}
+								Pas de commentaires
+							{%else%}
+								{% set moyenne = 0 %}
+								{% set nb = 0 %}
+								{%for com in article.comArticle %}
+									{%if com.commentePar.active==1 %}
+										{% set moyenne = moyenne + com.note  %}
+										{% set nb = nb + 1 %}
+									{%endif%}
+								{%endfor%}
+								{% set moyenne = moyenne / nb %}
+								{{moyenne|round(2, 'floor')}}
+							{%endif%}
                         </td>
                         <td class="text-center">
                             <a href="{{ path('article_show', { 'id': article.id }) }}">Voir</a>

@@ -33,24 +33,22 @@
                             </ul>
                         </td>
                         <td class="text-center">
-                            <ul>
-                                {%if article.comArticle is empty %}
-                                    Pas de commentaires
-                                {%else%}
-                                    {% set moyenne = 0 %}
-                                    {% set nb = 0 %}
-                                    {%for com in article.comArticle %}
-                                        {%if com.commentePar.active==1 %}
-                                            {% set moyenne = moyenne + com.note  %}
-                                            {% set nb = nb + 1 %}
-                                        {%endif%}
-                                    {%endfor%}
-                                    {% set moyenne = moyenne / nb %}
-                                    {{moyenne}}
-                                    {% set moyennetot = moyennetot +  moyenne%}
-                                    {% set nbtot = nbtot +1 %}
-                                {%endif%}
-                            </ul>
+							{%if article.comArticle is empty %}
+								Pas de commentaires
+							{%else%}
+								{% set moyenne = 0 %}
+								{% set nb = 0 %}
+								{%for com in article.comArticle %}
+									{%if com.commentePar.active==1 %}
+										{% set moyenne = moyenne + com.note  %}
+										{% set nb = nb + 1 %}
+									{%endif%}
+								{%endfor%}
+								{% set moyenne = moyenne / nb %}
+								{{moyenne|round(2, 'floor')}}
+								{% set moyennetot = moyennetot +  moyenne%}
+								{% set nbtot = nbtot +1 %}
+							{%endif%}
                         </td>
                         <td class="text-center">
                             <ul>
@@ -69,7 +67,7 @@
     </table>
     {%if nbtot != 0 %}
         {% set moyennetot = moyennetot / nbtot%}
-        Moyenne total : {{moyennetot}}
+        <h3><b>Moyenne total : {{moyennetot|round(2, 'floor')}}</b></h3>
     {%else%}
         Pas de commentaires
     {%endif%}
