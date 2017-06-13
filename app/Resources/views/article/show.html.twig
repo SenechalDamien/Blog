@@ -64,7 +64,7 @@
                 {% set moyenne = 0 %}
                 {% set i = 0 %}
                 {% for com in listecom %}
-                    {%if com.ecritPar.active==1 %}
+                    {%if com.commentePar.active==1 %}
                         {% set i = i+1 %}
                         {% set moyenne = moyenne+com.note %}
                         <tr>

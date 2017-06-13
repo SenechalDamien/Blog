@@ -40,8 +40,10 @@
                                     {% set moyenne = 0 %}
                                     {% set nb = 0 %}
                                     {%for com in article.comArticle %}
-                                        {% set moyenne = moyenne + com.note  %}
-                                        {% set nb = nb + 1 %}
+                                        {%if com.commentePar.active==1 %}
+                                            {% set moyenne = moyenne + com.note  %}
+                                            {% set nb = nb + 1 %}
+                                        {%endif%}
                                     {%endfor%}
                                     {% set moyenne = moyenne / nb %}
                                     {{moyenne}}
