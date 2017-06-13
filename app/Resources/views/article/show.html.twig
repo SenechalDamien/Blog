@@ -27,11 +27,11 @@
                 <td>{{ article.contenu }}</td>
             </tr>
             <tr>
-                <th>Datemodif</th>
+                <th>Date de dernière modification</th>
                 <td>{% if article.dateModif %}{{ article.dateModif|date('Y-m-d') }}{% endif %}</td>
             </tr>
             <tr>
-                <th>Datepublication</th>
+                <th>Date de publication</th>
                 <td>{% if article.datePublication %}{{ article.datePublication|date('Y-m-d') }}{% endif %}</td>
             </tr>
         </tbody>
